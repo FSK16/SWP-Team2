@@ -47,3 +47,15 @@ header button:hover{
     flex-direction: row-reverse;
     padding-right:10px;
 }
+.carousel-item img{
+    height: auto;
+    width: 100%;
+}
+.carousel-inner{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    overflow: hidden; 
+    height: 55vh;
+    width: 100%;
+}
