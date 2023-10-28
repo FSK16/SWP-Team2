@@ -58,34 +58,35 @@ document.getElementById("game").addEventListener("keyup", ev => {
     // check ob wir uns beim ersten Buchstaben befinden mit firstchild
     const isFirstLetter = currentLetter === currentWord.firstChild;
 
+
+    // hier die verschiebung der Buchstaben und die Auswertung davon (richtig, falsch, übersprungen) wenn es ein Buchstabe ist
     if (isLetter) {
-        if (currentLetter)
-        {
+        if (currentLetter) {
             //alert(key === expected ? "richtig" : "falsch");
             addClass(currentLetter, key === expected ? "correct" : "incorrect");
             removeClass(currentLetter, "current");
-            if (currentLetter.nextSibling)
-            {
+            if (currentLetter.nextSibling) {
                 addClass(currentLetter.nextSibling, "current");
             }
             
-        } else {
+
+        }
+        // Hier werden Buchstaben die extra geschrieben wurden extra hinzugefügt und als mittels span erstellt und die Klasse extra hinzugefügt
+        else {
             const incorrecLetter = document.createElement("span");
             incorrecLetter.innerHTML = key;
             incorrecLetter.className = "letter incorrect extra";
 
             currentWord.appendChild(incorrecLetter);
-            }
+        }
     }
 
     
 
     
-    if (isSpace)
-    {
+    if (isSpace) {
         
-        if (expected !== "")
-        {
+        if (expected !== "") {
             // Hier falls man wörter überspringt werden alle Wörter, die nicht korrekt siund (.letter:not(correct)) als skipped markiert
             const letterTomakeBad = [...document.querySelectorAll('.word.current .letter:not(.correct)')];
             letterTomakeBad.forEach(letter => {
@@ -95,30 +96,28 @@ document.getElementById("game").addEventListener("keyup", ev => {
         //Hier übliche spielchen current wird entfernt vom Wort und auf nächstes Übergeben 
         removeClass(currentWord, "current");
         addClass(currentWord.nextSibling, "current");
-        if (currentLetter)
-        {
+        if (currentLetter) {
             removeClass(currentLetter, "current");
             
         }
         addClass(currentWord.nextSibling.firstChild, "current");
     }
+    
     // Alle anweisungen hier sind dafür da damit man mit backspace auch wieder zurück kann und da halt die verschiuedenen Szenarien (am anfang des wortes, am ende des wortes, in der mitte des wortes)
-    if (isBackspace)
-    {
+    if (isBackspace) {
         //Hier wenn man am anfang des Wortes nächsten wortes ist
         if (currentLetter && isFirstLetter) {
-        // Hier dann vorherige Wort zu jetzigem Wort mnacehn
-        removeClass(currentWord, "current");
-        addClass(currentWord.previousSibling, "current");
+            // Hier dann vorherige Wort zu jetzigem Wort mnacehn
+            removeClass(currentWord, "current");
+            addClass(currentWord.previousSibling, "current");
 
-        removeClass(currentLetter, "current");
-        addClass(currentWord.previousSibling.lastChild, "current");
-        removeClass(currentWord.previousSibling.lastChild, "incorrect");
-        removeClass(currentWord.previousSibling.lastChild, "correct");
-        removeClass(currentWord.previousSibling.lastChild, "skipped");
+            removeClass(currentLetter, "current");
+            addClass(currentWord.previousSibling.lastChild, "current");
+            removeClass(currentWord.previousSibling.lastChild, "incorrect");
+            removeClass(currentWord.previousSibling.lastChild, "correct");
+            removeClass(currentWord.previousSibling.lastChild, "skipped");
         }
-        else if (currentLetter && !isFirstLetter)
-        {
+        else if (currentLetter && !isFirstLetter) {
             // Hier wenn man in der Mitte ist
             removeClass(currentLetter, "current");
             addClass(currentLetter.previousSibling, "current");
@@ -126,19 +125,38 @@ document.getElementById("game").addEventListener("keyup", ev => {
             removeClass(currentLetter.previousSibling, "incorrect");
             removeClass(currentLetter.previousSibling, "skipped");
         }
-        else if (!currentLetter)
-        {
+        else if (!currentLetter) {
             //Hier falls man am ende des Wortes ist
             addClass(currentWord.lastChild, "current");
             removeClass(currentWord.lastChild, "correct");
             removeClass(currentWord.lastChild, "incorrect");
             removeClass(currentWord.lastChild, "skipped");
 
-            }
+        }
       
 
     }
 
+    // Hier wird dann das scrollen gemacht
+    function scrollWords(amount) {
+        const wordsContainer = document.getElementById("words");
+        const margin = parseInt(wordsContainer.style.marginTop || '0px');
+        wordsContainer.style.marginTop = (margin + amount) + 'px';
+    }
+
+  
+// Hier wird gescrollt einmal hoch und einmal runter
+const wordsContainer = document.getElementById("words");
+if (currentWord.getBoundingClientRect().top > 250) {
+    scrollWords(-35);
+    
+} // Hier muss davor gecheckt werden ob es bereits gescrollt ist damit nicht direkt gescrollt wird hat mich viel zu lange gebracuht 
+else if (wordsContainer.style.marginTop && parseInt(wordsContainer.style.marginTop) <= -35) {
+  if (currentWord.getBoundingClientRect().top < 200) {
+    scrollWords(35);
+  }
+}
+      
 
     // einmal cursor bewegen bitte
 
@@ -147,7 +165,7 @@ document.getElementById("game").addEventListener("keyup", ev => {
     const nextWort = document.querySelector(".word.current");
 
     // kleine funktion um code schgöner zu machen musste ich ausprobieren :-)
-    cursor.style.top = (nextLetter || nextWort).getBoundingClientRect().top + "px";
+    cursor.style.top = (nextLetter || nextWort).getBoundingClientRect().top + 2 + "px";
     // Am ende angelangt muss cursor ganz nach hinten ans Wort 
     cursor.style.left = (nextLetter || nextWort).getBoundingClientRect()[nextLetter ? 'left' : 'right'] + "px";
    
