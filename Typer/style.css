@@ -19,12 +19,13 @@ body {
 
 main {
     width: 600px;
-    margin: 35px;
+    margin: 35px auto;
 
 }
 
 h1 {
     color: var(--textPrimary);
+   
 
 }
 
@@ -57,7 +58,7 @@ button {
     padding: 5px 20px;
     cursor: pointer;
 }
-
+/*Overflow hidden ist hier wichtig damit wird nicht alles angezeigt sondern nur ein Teil*/
 div#game {
     line-height: 35px;
     height: 105px;
@@ -73,18 +74,11 @@ div#game:focus {
     filter: blur(5px);
     color: var(--textSecondary);
 }
-
-
-body {
-    background-color: #fff;
-}
-
 /* Hier ist wenn es nicht mehr gefokust ist, es verblasst für fancy shit und so */
 #game:focus #words {
     filter: blur(0);
 
 }
-
 /*  Hier wird der Text ausgegeben wenn blur aktiv ist */
 #focus-error {
     position: absolute;
@@ -117,7 +111,6 @@ div.word {
 .letter.incorrect {
     color: #f55;
 }
-
 /*  Ist damit der Curos blinkt */
 @keyframes blink {
     0% {
@@ -132,7 +125,7 @@ div.word {
         opacity: 1;
     }
 }
-
+/*Eigenschaften des Cursors*/
 #cursor {
     display: none;
     width: 3px;
@@ -143,7 +136,6 @@ div.word {
     left: 47px;
     animation: blink 1s infinite;
 }
-
 /* Ist damit Cuurosr nicht mehr angezeigt wird wenn Blur da ist bzw. kein Fokus mehr ist*/
 #game:focus #cursor {
     display: block;
