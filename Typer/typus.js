@@ -9,18 +9,19 @@ function removeClass(el,name) {
   el.className = el.className.replace(name,'');
 }
 
-
+// Brauchen wir später nicht mehr aber für jetzt ist es gut
 function randomWord()
 {
     return words[Math.floor(Math.random() * words.length)];
 
 }
 
+//Ist damit jedes Wort in einem div ist und jeder Buchstabe in einem span damit wir dann später die Buchstaben einzeln ansprechen können
 function formatWord(word) {
   return `<div class="word"><span class="letter">${word.split('').join('</span><span class="letter">')}</span></div>`;
 }
 
-
+//Hier wird das Spiel gestartet und die Wörter in den DOM geladen
 function newGame() {
     document.getElementById("words").innerHTML = "";
 
@@ -38,13 +39,17 @@ function newGame() {
     
 
 }
-
+// Hier wird dann die Eingabe des Users abgefangen und verarbeitet
 document.getElementById("game").addEventListener("keyup", ev => {
     const key = ev.key;
-    
+    // Hier wird dann der aktuelle Buchstabe ausgewählt um mit diesem Zuarbeiten zu können
     const currentLetter = document.querySelector(".letter.current");
+    // Das ist dafür da um den Nächsten Buchstaben zu bekommen weil wir ja immer mit dem nächsten arbeiten müssen und das " " ist dafür da das wir am ende eines Wortes ein Leerzeichen haben damit der User dann Leerzeile drücken kann und es als Richtig gewertet wird 
     const expected = currentLetter?.innerHTML || " ";
+    //HJier einfach nur die Abfrage ob es ein Buchstabe ist und das es kein Leerzeichen ist
     const isLetter = key.length === 1 && key != " ";
+    // Hier wird dann abgefragt ob es ein Leerzeichen ist
+    //sind sozusagen einfach if anweisungen in fancy musst eich machen weil sie nice sind
     const isSpace = key === " ";
 
     const currentWord = document.querySelector(".word.current");
