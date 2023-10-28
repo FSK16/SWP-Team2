@@ -52,8 +52,11 @@ document.getElementById("game").addEventListener("keyup", ev => {
     //sind sozusagen einfach if anweisungen in fancy musst eich machen weil sie nice sind
     const isSpace = key === " ";
 
-    const currentWord = document.querySelector(".word.current");
+    const isBackspace = key === "Backspace";
 
+    const currentWord = document.querySelector(".word.current");
+    // check ob wir uns beim ersten Buchstaben befinden mit firstchild
+    const isFirstLetter = currentLetter === currentWord.firstChild;
 
     if (isLetter) {
         if (currentLetter)
@@ -77,17 +80,19 @@ document.getElementById("game").addEventListener("keyup", ev => {
 
     
 
-
+    
     if (isSpace)
     {
         
         if (expected !== "")
         {
+            // Hier falls man wörter überspringt werden alle Wörter, die nicht korrekt siund (.letter:not(correct)) als skipped markiert
             const letterTomakeBad = [...document.querySelectorAll('.word.current .letter:not(.correct)')];
             letterTomakeBad.forEach(letter => {
                 addClass(letter, "skipped");
             });
         }
+        //Hier übliche spielchen current wird entfernt vom Wort und auf nächstes Übergeben 
         removeClass(currentWord, "current");
         addClass(currentWord.nextSibling, "current");
         if (currentLetter)
@@ -97,8 +102,42 @@ document.getElementById("game").addEventListener("keyup", ev => {
         }
         addClass(currentWord.nextSibling.firstChild, "current");
     }
+    // Alle anweisungen hier sind dafür da damit man mit backspace auch wieder zurück kann und da halt die verschiuedenen Szenarien (am anfang des wortes, am ende des wortes, in der mitte des wortes)
+    if (isBackspace)
+    {
+        //Hier wenn man am anfang des Wortes nächsten wortes ist
+        if (currentLetter && isFirstLetter) {
+        // Hier dann vorherige Wort zu jetzigem Wort mnacehn
+        removeClass(currentWord, "current");
+        addClass(currentWord.previousSibling, "current");
 
-    
+        removeClass(currentLetter, "current");
+        addClass(currentWord.previousSibling.lastChild, "current");
+        removeClass(currentWord.previousSibling.lastChild, "incorrect");
+        removeClass(currentWord.previousSibling.lastChild, "correct");
+        removeClass(currentWord.previousSibling.lastChild, "skipped");
+        }
+        else if (currentLetter && !isFirstLetter)
+        {
+            // Hier wenn man in der Mitte ist
+            removeClass(currentLetter, "current");
+            addClass(currentLetter.previousSibling, "current");
+            removeClass(currentLetter.previousSibling, "correct");
+            removeClass(currentLetter.previousSibling, "incorrect");
+            removeClass(currentLetter.previousSibling, "skipped");
+        }
+        else if (!currentLetter)
+        {
+            //Hier falls man am ende des Wortes ist
+            addClass(currentWord.lastChild, "current");
+            removeClass(currentWord.lastChild, "correct");
+            removeClass(currentWord.lastChild, "incorrect");
+            removeClass(currentWord.lastChild, "skipped");
+
+            }
+      
+
+    }
 
 
     // einmal cursor bewegen bitte
