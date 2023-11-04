@@ -18,8 +18,8 @@
             </div>
 
             <div class="right">
-            <button><h3>LogIn</h3></button>
-            <button><h3>Go Typing</h3></button>
+            <a href="Login+Regi.html"><button><h3>LogIn</h3></button></a>
+            <a href="Typer/index.html"><button><h3>Go Typing</h3></button></a>
             </div>
         </div>
 
@@ -45,9 +45,82 @@
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
-      </div>
+    </div>
 
+    <div class="facts">
+      <div class="box">
+        <h1 class="box_fact">3</h1>
+        <p class="box_fact description">Users</p>
+      </div>
+      <div class="box">
+        <h1 class="box_fact">1000</h1>
+        <p class="box_fact description">Words typed every day</p>
+      </div>
+      <div class="box">
+        <h1 class="box_fact">2</h1>
+        <p class="box_fact description">languages</p>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <img src ="pics/53966735-pfeil-nach-unten-vektor-symbol-style-ist-flach-symbol-symbol-farbe-schwarz-mit-weißem.jpg">
+      <p  class="box_fact description" > Scroll for typing </p>
+    </div>
+
+
+
+
+    <div class="typer-deck">
+
+      <main>
+
+      <h1>
+        <!--Hier snacke ich mir  die Schriftarten für den Typer (google fonts ist king)-->
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+             viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                     
+          <path
+                d="M64 112c-8.8 0-16 7.2-16 16V384c0 8.8 7.2 16 16 16H512c8.8 0 16-7.2 16-16V128c0-8.8-7.2-16-16-16H64zM0 128C0 92.7 28.7 64 64 64H512c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM176 320H400c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V336c0-8.8 7.2-16 16-16zm-72-72c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H120c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H120c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H200c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H200c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H280c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H280c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H360c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H360c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H440c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H440c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16z" />
+        </svg>
+      Typus
+      </h1>
+                  <!-- Hier wird das Spiel angezeigt sollte glaub ich keine Erklöä#rung brauchen -->
+      <div id="header">
+          <div id="info"></div>
+              <div id="buttons">
+                <button id="newGameBtn">Nochmal</button>
+              </div>
+            </div>
+          <div id="game" tabindex="0">
+              <div id="words"></div>
+              <div id="cursor"></div>
+              <div id="focus-error">Klicken um zu tippen</div>
+          </div>
+      </main>
+          <script src="Typer/typus.js" defer> </script>
+
+
+    </div>
 
     
+  <script>
+    const typerDeck = document.querySelector('.typer-deck');
+    let scrollToTyperDeck = true;
+
+    window.addEventListener('scroll', () => {
+      if (scrollToTyperDeck) {
+        if (window.scrollY >= 500) {
+          typerDeck.scrollIntoView({ behavior: 'smooth', block: 'end' });
+          scrollToTyperDeck = false;
+        }
+      }
+    });
+
+    typerDeck.addEventListener('scroll', () => {
+      if (typerDeck.scrollTop === 1) {
+        scrollToTyperDeck = true;
+      }
+    });
+  </script>
 </body>
 </html>

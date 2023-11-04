@@ -59,3 +59,211 @@ header button:hover{
     height: 55vh;
     width: 100%;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap');
+
+:root {
+
+    --bgColor: #333;
+    --textPrimary: #fff;
+    --textSecondary: #666;
+    --primaryColor: #39cccc;
+    --base: 0.6rem;
+}
+
+body {
+
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bgColor);
+    color: var(--textPrimary);
+    font-size: 1.4rem;
+
+}
+
+main {
+    width: 1400px;
+margin:auto;
+    padding: 10px;
+    height: 100vh;
+    padding-top: 50px;
+
+}
+
+h1 {
+    color: var(--textPrimary);
+   
+
+}
+
+h1 svg {
+    width: 40px;
+    fill: var(--primaryColor);
+}
+
+#header {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 20px 6px 30px;
+}
+
+#buttons {
+
+    text-align: right;
+}
+
+#timer {
+    color: var(--primaryColor);
+}
+
+button {
+    background-color: rgba(255, 255, 255, .2);
+    border: none;
+    border-radius: 5px;
+    color: rgba(255, 255, 255, .5);
+    padding: 5px 20px;
+    cursor: pointer;
+}
+/*Overflow hidden ist hier wichtig damit wird nicht alles angezeigt sondern nur ein Teil*/
+div#game {
+    line-height: 35px;
+    height: 105px;
+    overflow: hidden;
+    position: relative;
+}
+
+div#game:focus {
+    outline: 0;
+}
+
+#words {
+    filter: blur(5px);
+    color: var(--textSecondary);
+}
+/* Hier ist wenn es nicht mehr gefokust ist, es verblasst für fancy shit und so */
+#game:focus #words {
+    filter: blur(0);
+
+}
+/*  Hier wird der Text ausgegeben wenn blur aktiv ist */
+#focus-error {
+    position: absolute;
+    inset: 0;
+    text-align: center;
+    padding: 35px;
+}
+
+#game:focus #focus-error {
+    display: none;
+}
+
+div.word {
+    display: inline-block;
+    font-family: 'Roboto Mono', monospace;
+    margin: 0 5px;
+
+
+}
+
+.letter.correct {
+    color: var(--primaryColor);
+}
+
+.letter.skipped {
+    text-decoration: #f55 wavy underline;
+
+}
+
+.letter.incorrect {
+    color: #f55;
+}
+/*  Ist damit der Curos blinkt */
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+/*Eigenschaften des Cursors*/
+#cursor {
+    display: none;
+    width: 3px;
+    height: 1.6rem;
+    background-color: var(--textPrimary);
+    position: fixed;
+    top: 185px;
+    left: 47px;
+    animation: blink 1s infinite;
+}
+/* Ist damit Cuurosr nicht mehr angezeigt wird wenn Blur da ist bzw. kein Fokus mehr ist*/
+#game:focus #cursor {
+    display: block;
+}
+.typer-deck{
+    width: 100%;
+    background-color: var(--bgColor);
+    color: var(--textPrimary);
+}
+.facts{
+    height: 200px;
+    width: 1400px;
+    margin: auto;
+    justify-content: center;
+    display: flex;
+    padding: 10px;
+    margin-top: 40px;
+}
+.box{
+    height: 150px;
+    width: 400px;
+    float: left;
+    background-color: #f5f5f5;
+    margin-left: 20px;
+    border: 1px solid rgb(194, 194, 194);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.box_fact{
+    color: var(--primaryColor);
+    font-weight: 600;
+    display: flex;
+    margin-bottom: 0px;
+
+}
+.description{
+    margin-top: -5px;
+    color: var(--textSecondary);
+    font-size: 20px;
+}
+.arrow{
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.arrow img{
+    margin-bottom: 10px;
+}
+.arrow p{
+    display: flex;
+    margin-bottom: 0px;
+    color: var(--textSecondary);
+    font-size: 23px;
+}
+
+html {
+    scroll-behavior: smooth;
+  }
+
+
