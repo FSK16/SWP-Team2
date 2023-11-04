@@ -47,3 +47,13 @@ header button:hover{
     flex-direction: row-reverse;
     padding-right:10px;
 }
+.user_high_score{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    float: left;
+}
+.global_high_scores{
+    width: 50%;
+    float: left;
+}
