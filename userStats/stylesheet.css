@@ -57,3 +57,11 @@ header button:hover{
     width: 50%;
     float: left;
 }
+.content{
+    width: 1400px;
+    margin: auto;
+}
+.table_2_itemes{
+    display: flex;
+    justify-content: center;
+}

@@ -78,7 +78,7 @@ header button:hover{
 /* Style for user stats section */
 #userStats {
     float: left;
-    width: 40%;
+    width: 680px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -89,7 +89,7 @@ header button:hover{
 /* Style for global high scores section */
 #globalHighScores {
     float: left;
-    width: 40%;
+    width: 680px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
