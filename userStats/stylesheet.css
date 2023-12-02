@@ -1,0 +1,67 @@
+p, h1, h2, h3, h4, h5{
+    font-family: monospace;
+}
+.typrusheader{
+    background-color: rgb(235, 235, 235);
+    width: 100%;
+    height: 200px;
+}
+.headercontent{
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 1400px;
+    padding: 10px;
+    margin: auto;
+    height:200px
+    
+}
+header button{
+    width: 180px;
+    height: 50px;
+    border: 0;
+    background-color: rgb(204, 228, 228);
+    margin-left:5px
+
+}
+header button h3{
+    margin: auto;
+    font-weight: 700;
+
+}
+header button:hover{
+    background-color: rgb(58,203,203);
+    transition: 0.5s ease;
+}
+.left{
+    width: 50%;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+.right{
+    width: 50%;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    padding-right:10px;
+}
+.user_high_score{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    float: left;
+}
+.global_high_scores{
+    width: 50%;
+    float: left;
+}
+.content{
+    width: 1400px;
+    margin: auto;
+}
+.table_2_itemes{
+    display: flex;
+    justify-content: center;
+}

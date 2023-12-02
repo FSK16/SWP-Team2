@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typrus</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="statistic.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body> 
+    <header class="typrusheader">
+        <div class="headercontent">
+            <div class="left">
+            <img src ="pics/logo.jpg">
+            </div>
+
+            <div class="right">
+            <button><h3>LogIn</h3></button>
+            <button><h3>Go Typing</h3></button>
+            </div>
+        </div>
+
+    </header>
+
+      <h2 id="welcomeMessage">Welcome user </h2>
+
+      <script>
+        // User muss dann von der datenbank entnommen werden
+        var loggedInUser = "JohnDoe";
+        
+        // mit javascript die welcomemassage updaten
+        var welcomeMessage = document.getElementById("welcomeMessage");
+        welcomeMessage.textContent += loggedInUser;
+    </script>
+
+<div id="userStats" class="user_high_score">
+        <h2>User Stats</h2>
+        <!-- Include user-specific stats here -->
+        <p>Username: JohnDoe</p>
+        <p>wpm: 100</p>
+        <p>acc: 95%</p>
+        <p>test type: time 30 sec / english</p>
+        <p>time: 30</p>
+
+        <canvas id="scatterChart" width="400" height="200"></canvas>
+        <!-- Add more user stats as needed -->
+</div>
+
+  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // JavaScript code for creating the line chart
+        var chartData = {
+            datasets: [{
+                label: 'WPM vs. Time',
+                data: [
+                    { x: 5, y: 75 },
+                    { x: 10, y: 130 },
+                    { x: 15, y: 100 },
+                    { x: 20, y: 90 },
+                    { x: 25, y: 110 },
+                    { x: 30, y: 100 }
+                ],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                pointRadius: 5,
+                pointHoverRadius: 8
+            }]
+        };
+
+        var lineChart = new Chart(document.getElementById("scatterChart"), {
+            type: 'line',
+            data: chartData,
+            options: {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: {
+                            display: true,
+                            text: 'Time (seconds)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'WPM'
+                        }
+                    }
+                }
+            }
+        });
+        
+    </script>
+
+    <div id="globalHighScores" class="global_high_scores">
+        <h2>Global High Scores</h2>
+        <!-- Include a list of global high scores here -->
+        <ol>
+            <li>Player A - Score: 1200</li>
+            <li>Player B - Score: 1100</li>
+            <li>Player C - Score: 1050</li>
+            <!-- highscores je naachdem wie viele man anzeigen will erweitern und aus der daten bank entnehmen -->
+        </ol>
+    </div>
+
+    <div id="countryPlacement">
+
+        <script>// Function to get the user's country placement
+            function getCountryPlacement() {
+                // Simulated data, replace with your actual data retrieval logic
+                return "#1";
+            }
+        
+            // Update the "countryPlacement" section with the user's country placement
+            var countryPlacementElement = document.getElementById("countryPlacement");
+            countryPlacementElement.innerHTML = "You are " + getCountryPlacement() + " in your country";
+        </script>
+    </div>
+
+    
+</body>
+</html>

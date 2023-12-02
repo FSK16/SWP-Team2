@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <select>
+        <option value="1"></option>
+        <option value="2"></option>
+    </select>
+
+    <button>Easy</button>
+    <button>Medium</button>
+    <button>Hard</button>
+
+
+    <button onclick="start();">Start</button>
+
+    <label id="l0"></label>
+
+
+    <script>
+        let s = "blue\ngreat\nmorale\ncustody\nurge\nnigger\nbigger\ntrigger\ndigger\nNiemeczek";
+
+        let arr = s.split('\n');
+
+        
+
+
+        function choosewords(){
+
+            for(let i = 0; i < 5; i++){
+
+                let rnd = Math.floor(Math.random() * 10);
+                document.getElementById("l0").innerHTML += "<strong>" + arr[rnd] + "</strong> ";
+            }
+        }
+
+        function start(){
+            let timer = 10;
+
+
+            let interval = setInterval(() =>{
+                if(timer == 0){
+                    alert("Zeit aus");
+                    clearInterval(interval);
+                }
+                timer--;
+            }, 1000)
+        }
+
+
+        choosewords();
+    </script>
+</body>
+</html>
