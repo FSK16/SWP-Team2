@@ -1,6 +1,43 @@
 //nur test daten werden dann spä#ter API integrieren
 
 const words = "Kürzlich gab es einen starken Regensturm, der die Straßen überflutete und für Verkehrsbehinderungen sorgte. Die Temperaturen sind jedoch angenehm kühl und erfrischend, was eine willkommene Abwechslung von der Hitze der letzten Wochen darstellt. Es wird erwartet, dass das Wetter in den nächsten Tagen sonniger wird, aber es ist immer ratsam, einen Regenschirm in der Nähe zu haben, da das Wetter in dieser Jahreszeit unvorhersehbar sein kann.".split(" ");
+let intervalID;
+
+
+
+
+
+
+
+// Liste der Button-IDs
+const buttonIds = ["wordsBtn15", "wordsBtn30", "wordsBtn60"];
+
+
+function resetButtonColors() {
+    buttonIds.forEach(id => {
+        document.getElementById(id).style.color = "rgba(255, 255, 255, .5)";
+    });
+}
+
+function selectButton(id) {
+    resetButtonColors();
+    document.getElementById(id).style.color = "var(--primaryColor)";
+}
+
+
+buttonIds.forEach(id => {
+    document.getElementById(id).addEventListener("click", ev => {
+        selectButton(id);
+        gameTime = parseInt(id.replace("wordsBtn", ""));
+    });
+});
+
+// Setze den Standard-Button auf "wordsBtn15"
+selectButton("wordsBtn15");
+gameTime = 15;
+
+
+let TimerStarted = false;
 
 function addClass(el,name) {
   el.className += ' '+name;
@@ -24,6 +61,7 @@ function formatWord(word) {
 //Hier wird das Spiel gestartet und die Wörter in den DOM geladen
 function newGame() {
     document.getElementById("words").innerHTML = "";
+        document.getElementById('game').classList.add('start');
 
     // Hier später mittels button anstantt 200 fix einen variablen wert einsetzen
 
@@ -35,10 +73,37 @@ function newGame() {
     
     addClass(document.querySelector(".word"), "current");
     addClass(document.querySelector(".letter"), "current");
-
+    clearInterval(intervalID);
+    TimerStarted = false;
+    document.getElementById("info").style.display = "none";
+    
+    
     
 
 }
+
+function gameover()
+{
+    clearInterval(intervalID);
+    addClass(document.getElementById('game'), 'over');
+    document.getElementById("info").innerHTML = "WPM: " + getWpm();
+
+}
+
+function getWpm() {
+  const words = [...document.querySelectorAll('.word')];
+  const lastTypedWord = document.querySelector('.word.current');
+  const lastTypedWordIndex = words.indexOf(lastTypedWord) + 1;
+  const typedWords = words.slice(0, lastTypedWordIndex);
+  const correctWords = typedWords.filter(word => {
+    const letters = [...word.children];
+    const incorrectLetters = letters.filter(letter => letter.className.includes('incorrect'));
+    const correctLetters = letters.filter(letter => letter.className.includes('correct'));
+    return incorrectLetters.length === 0 && correctLetters.length === letters.length;
+  });
+  return correctWords.length / gameTime * 60;
+}
+
 // Hier wird dann die Eingabe des Users abgefangen und verarbeitet
 document.getElementById("game").addEventListener("keyup", ev => {
     const key = ev.key;
@@ -55,8 +120,41 @@ document.getElementById("game").addEventListener("keyup", ev => {
     const isBackspace = key === "Backspace";
 
     const currentWord = document.querySelector(".word.current");
+  
+    
+
     // check ob wir uns beim ersten Buchstaben befinden mit firstchild
     const isFirstLetter = currentLetter === currentWord.firstChild;
+    if (document.querySelector('#game.over')) {
+        return;
+    }
+
+    
+    function startTimer(duration) {
+        let timer = duration - 1;
+        document.getElementById("info").style.display = "block";
+         intervalID = setInterval(() => {
+            if (timer < 0) {
+                
+                gameover();
+                return;
+            }
+            const minutes = Math.floor(timer / 60);
+            const seconds = timer % 60;
+            document.getElementById("info").innerHTML = minutes + ":" + seconds;
+            timer--;
+            
+        }, 1000);
+    }
+    
+    
+    if (!TimerStarted) {
+        TimerStarted = true;
+        startTimer(gameTime);
+    }
+    
+
+   
 
 
     // hier die verschiebung der Buchstaben und die Auswertung davon (richtig, falsch, übersprungen) wenn es ein Buchstabe ist
@@ -172,6 +270,13 @@ else if (wordsContainer.style.marginTop && parseInt(wordsContainer.style.marginT
 
 });
 
+// um Tastatur dicitonary verwenden für ansteuerung
 
+document.getElementById("newGameBtn").addEventListener("click", ev => { 
+    
+   
+    newGame();
+}
+);
 
 newGame();
