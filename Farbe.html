@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farbauswahl</title>
+  <style>
+    /* Stildefinitionen für das Layout */
+    body {
+      font-family: Arial, sans-serif; /* Verwende Arial als Standardschriftart */
+      text-align: center; /* Zentriere den Text im Körper */
+    }
+
+    #color-selector {
+      margin-top: 20px; /* Füge oberen Abstand hinzu */
+    }
+
+    /* Stil für Labels und Eingabefelder */
+    label {
+      display: inline-block; /* Stellt die Labels als Blocks nebeneinander dar */
+      width: 150px; /* Breite der Labels */
+      margin-bottom: 10px; /* Unteren Abstand zwischen den Labels hinzufügen */
+    }
+
+    input[type="color"] {
+      vertical-align: middle; /* Vertikale Ausrichtung der Eingabefelder */
+    }
+
+    button {
+      margin-top: 10px; /* Oben Abstand für den Button hinzufügen */
+      padding: 5px 10px; /* Innenabstand für den Button */
+      cursor: pointer; /* Zeige den Mauszeiger als Zeiger an */
+    }
+  </style>
+</head>
+<body>
+  <!-- Überschrift für die Farbauswahl -->
+  <h1>Farbauswahl für Hintergrund und Text</h1>
+  <!-- Container für die Farbauswahl -->
+  <div id="color-selector">
+    <!-- Farbwähler für die Hintergrundfarbe -->
+    <div>
+      <label for="bg-color">Hintergrundfarbe:</label>
+      <input type="color" id="bg-color">
+    </div>
+    <!-- Farbwähler für die Textfarbe -->
+    <div>
+      <label for="text-color">Textfarbe:</label>
+      <input type="color" id="text-color">
+    </div>
+    <br>
+    <!-- Button zum Ändern der Farben -->
+    <button onclick="changeColors()">Ändern</button>
+  </div>
+
+  <!-- JavaScript-Abschnitt für die Funktionalität -->
+  <script>
+    // JavaScript-Funktion, um die Farben zu ändern
+    function changeColors() {
+      var bgColor = document.getElementById("bg-color").value; // Hintergrundfarbe auslesen
+      var textColor = document.getElementById("text-color").value; // Textfarbe auslesen
+      document.body.style.backgroundColor = bgColor; // Hintergrundfarbe ändern
+      document.body.style.color = textColor; // Textfarbe ändern
+    }
+  </script>
+</body>
+</html>
