@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typus</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="  https://unpkg.com/showdown/dist/showdown.min.js"></script>
+ 
+</head>
+
+<body>
+    <main>
+        <h1>
+        <!--Hier snacke ich mir  die Schriftarten für den Typer (google fonts ist king)-->
+            <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+               
+                <path
+                    d="M64 112c-8.8 0-16 7.2-16 16V384c0 8.8 7.2 16 16 16H512c8.8 0 16-7.2 16-16V128c0-8.8-7.2-16-16-16H64zM0 128C0 92.7 28.7 64 64 64H512c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM176 320H400c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V336c0-8.8 7.2-16 16-16zm-72-72c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H120c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H120c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H200c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H200c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H280c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H280c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H360c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H360c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H440c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H440c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16z" />
+            </svg>
+            Typus
+            </h1>
+            <!-- Hier wird das Spiel angezeigt sollte glaub ich keine Erklöä#rung brauchen -->
+            <div id="header">
+
+                
+                <div id="info"></div>
+                
+                <div id="buttons">
+                    <select id="languageSelect">
+                        <option value="en">English</option>
+                        <option value="en_gb">English (GB)</option>
+                        <option value="de">German</option>
+                        <option value="de_at">German (Austria)</option>
+                        <option value="de_ch">German (Switzerland)</option>
+                        <option value="fr">French</option>
+                    </select>
+                    <button id="newGameBtn">Nochmal</button>
+                    
+                    <button id="wordsBtn15">15</button>
+                    <button id="wordsBtn30">30</button>
+                    <button id="wordsBtn60">60</button>
+
+
+                </div>
+            </div>
+            <div id="game" tabindex="0">
+                <div id="words"></div>
+                <div id="cursor"></div>
+                <div id="focus-error">Klicken um zu tippen</div>
+            </div>
+            </main>
+    <script src="typus.js" defer> </script>
+</body>
+</html>
