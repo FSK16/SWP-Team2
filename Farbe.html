@@ -59,8 +59,14 @@
     function changeColors() {
       var bgColor = document.getElementById("bg-color").value; // Hintergrundfarbe auslesen
       var textColor = document.getElementById("text-color").value; // Textfarbe auslesen
-      document.body.style.backgroundColor = bgColor; // Hintergrundfarbe ändern
-      document.body.style.color = textColor; // Textfarbe ändern
+      
+      // Prüfe, ob die Farben gleich sind
+      if(bgColor !== textColor) {
+        document.body.style.backgroundColor = bgColor; // Hintergrundfarbe ändern
+        document.body.style.color = textColor; // Textfarbe ändern
+      } else {
+        alert("Die Textfarbe darf nicht gleich der Hintergrundfarbe sein!"); // Benutzer benachrichtigen
+      }
     }
   </script>
 </body>
