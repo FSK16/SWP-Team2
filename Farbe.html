@@ -3,33 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesheet/style.css">
   <title>Farbauswahl</title>
   <style>
     /* Stildefinitionen für das Layout */
     body {
       font-family: Arial, sans-serif; /* Verwende Arial als Standardschriftart */
       text-align: center; /* Zentriere den Text im Körper */
-    }
-
-    #color-selector {
-      margin-top: 20px; /* Füge oberen Abstand hinzu */
-    }
-
-    /* Stil für Labels und Eingabefelder */
-    label {
-      display: inline-block; /* Stellt die Labels als Blocks nebeneinander dar */
-      width: 150px; /* Breite der Labels */
-      margin-bottom: 10px; /* Unteren Abstand zwischen den Labels hinzufügen */
-    }
-
-    input[type="color"] {
-      vertical-align: middle; /* Vertikale Ausrichtung der Eingabefelder */
-    }
-
-    button {
-      margin-top: 10px; /* Oben Abstand für den Button hinzufügen */
-      padding: 5px 10px; /* Innenabstand für den Button */
-      cursor: pointer; /* Zeige den Mauszeiger als Zeiger an */
     }
   </style>
 </head>
@@ -50,7 +30,7 @@
     </div>
     <br>
     <!-- Button zum Ändern der Farben -->
-    <button onclick="changeColors()">Ändern</button>
+    <button class="button_change_color" onclick="changeColors()">Ändern</button>
   </div>
 
   <!-- JavaScript-Abschnitt für die Funktionalität -->

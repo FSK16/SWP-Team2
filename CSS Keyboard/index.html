@@ -3,10 +3,25 @@
 <head>
     <meta charset ="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../stylesheet/style.css">
+
     <title>Virtual Keyboard</title>
 </head>
 <body class="">
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: 'Lato', sans-serif;
+        transition: .2s;
+    }
+    body.active {
+        background-color: rgb(54,54,54);
+    }
+    </style>
     <div class="container">
         <div class="keyboard_wrapp">
             <div class="keyboard_lights"></div>
