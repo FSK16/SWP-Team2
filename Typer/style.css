@@ -17,14 +17,8 @@ body {
 
 }
 
-
-
-
-
-
-
 main {
-    width: 600px;
+    width: 1400px;
     margin: 35px auto;
 
 }
@@ -40,30 +34,16 @@ h1 svg {
     fill: var(--primaryColor);
 }
 
-#header {
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: 20px 6px 30px;
-}
 
 
 #buttons {
 
     text-align: right;
+    margin-bottom: 20px;
 }
 
 #timer {
     color: var(--primaryColor);
-}
-
-button {
-    background-color: rgba(255, 255, 255, .2);
-    border: none;
-    border-radius: 5px;
-    color: rgba(255, 255, 255, .5);
-    padding: 5px 20px;
-    cursor: pointer;
 }
 button:hover {
     letter-spacing: 0.25em;
@@ -84,7 +64,8 @@ button span {
 /*Overflow hidden ist hier wichtig damit wird nicht alles angezeigt sondern nur ein Teil*/
 div#game {
     line-height: 35px;
-    height: 105px;
+    height: 150px;
+    float: left;
     overflow: hidden;
     position: relative;
 }
@@ -136,20 +117,7 @@ div.word {
 .letter.incorrect {
     color: #f55;
 }
-/*  Ist damit der Curos blinkt */
-@keyframes blink {
-    0% {
-        opacity: 1;
-    }
 
-    50% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
 /*Eigenschaften des Cursors*/
 #cursor  {
     display: none;
@@ -186,4 +154,53 @@ div.word {
 #game.start {
     filter: none;
     
+}
+.typer_head_lang_time{
+    display: flex;
+    justify-content: center;
+}
+.typer_head_lang_time button{
+    background-color: rgba(255, 255, 255, .2);
+    border: none;
+    border-radius: 5px;
+    color: rgba(255, 255, 255, .5);
+    padding: 5px 20px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.typer_head_lang_time select{
+    background-color: rgba(255, 255, 255, .2);
+    color: rgba(255, 255, 255, .5);
+}
+#languageSelect option {
+    background-color: #4d4d4d; /* Hintergrundfarbe der Optionen */
+    color: white; /* Textfarbe der Optionen */
+    width: 100%;
+}
+#languageSelect{
+    width: 150px;
+}
+
+
+/*  Ist damit der Curos blinkt */
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+@media (max-width: 1500px)
+{
+    main{
+        width: 100%;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
 }

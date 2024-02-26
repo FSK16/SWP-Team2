@@ -1,6 +1,9 @@
 let words = "Kürzlich gab es einen starken Regensturm, der die Straßen überflutete und für Verkehrsbehinderungen sorgte. Die Temperaturen sind jedoch angenehm kühl und erfrischend, was eine willkommene Abwechslung von der Hitze der letzten Wochen darstellt. Es wird erwartet, dass das Wetter in den nächsten Tagen sonniger wird, aber es ist immer ratsam, einen Regenschirm in der Nähe zu haben, da das Wetter in dieser Jahreszeit unvorhersehbar sein kann.".split(" ");
 let intervalID;
 let wrongCounter = 0;
+var timer_wo_limit;
+var woerter;
+
 
 document.getElementById("languageSelect").addEventListener("change", function() {
     const selectedLanguage = this.value;
@@ -27,7 +30,7 @@ async function fetchWords(lang, count) {
     }
 }
 // Liste der Button-IDs
-const buttonIds = ["wordsBtn15", "wordsBtn30", "wordsBtn60"];
+const buttonIds = ["wordsBtn15", "wordsBtn30", "wordsBtn60", "wordsBtn200woerter", "wordsBtn300woerter", "wordsBtn400woerter", "wordsBtn10woerter" ];
 
 
 function resetButtonColors() {
@@ -41,11 +44,25 @@ function selectButton(id) {
     document.getElementById(id).style.color = "var(--primaryColor)";
 }
 
-
 buttonIds.forEach(id => {
     document.getElementById(id).addEventListener("click", ev => {
         selectButton(id);
-        gameTime = parseInt(id.replace("wordsBtn", ""));
+        if(id.includes("woerter"))
+        {            
+            woerter = getNumberofSring(id);
+            if (woerter == null)
+            {
+                alert("Keine Wortanzahl gefunden!");
+            }
+            gameTime = null;
+        }
+        else
+        {
+            gameTime = parseInt(id.replace("wordsBtn", ""));
+            woerter = null;
+
+        }
+        newGame();
     });
 });
 
@@ -68,7 +85,6 @@ function removeClass(el,name) {
 function randomWord()
 {
     return words[Math.floor(Math.random() * words.length)];
-
 }
 
 //Ist damit jedes Wort in einem div ist und jeder Buchstabe in einem span damit wir dann später die Buchstaben einzeln ansprechen können
@@ -82,15 +98,27 @@ async function newGame() {
     await fetchWords();
     wrongCounter = 0;
     document.getElementById("words").innerHTML = "";
-        document.getElementById('game').classList.add('start');
+    document.getElementById('game').classList.add('start');
 
     // Hier später mittels button anstantt 200 fix einen variablen wert einsetzen
 
-    for (let i = 0; i < 200; i++)
+    if(woerter == null)
     {
-        document.getElementById("words").innerHTML += formatWord(randomWord());
-        
+        for (let i = 0; i < 200; i++)
+        {
+            document.getElementById("words").innerHTML += formatWord(randomWord());
+            
+        }
     }
+    if(gameTime == null)
+    {
+        for (let i = 0; i < woerter; i++)
+        {
+            document.getElementById("words").innerHTML += formatWord(randomWord());
+            
+        }
+    }
+
     
     addClass(document.querySelector(".word"), "current");
     addClass(document.querySelector(".letter"), "current");
@@ -99,32 +127,46 @@ async function newGame() {
     document.getElementById("info").style.display = "none";
     
     // Hier wird dann der Cursor auf den ersten Buchstaben gesetzt
-     const firstLetter = document.querySelector(".letter:first-child");
+    const firstLetter = document.querySelector(".letter:first-child");
     const cursor = document.getElementById("cursor");
 
     cursor.style.top = firstLetter.getBoundingClientRect().top + 2 + "px";
     cursor.style.left = firstLetter.getBoundingClientRect().left + "px";
+    if(words != null)
+    {
+        startTimeWithOutLimit();
+    }
     
     
 
 }
-
 
 
 
 
 function gameover()
 {
+    if(words != null)
+    {
+        stoppTimeWithOutLimit();
+    }
     clearInterval(intervalID);
     addClass(document.getElementById('game'), 'over');
     document.getElementById("info").innerHTML = "WPM: " + getWpm() + " | Accuracy: " + getAccuracy().toFixed(2) + "%";
-    
 }
 
 function getWpm() {
     
     // Hier wird dann die Zeit in Minuten umgerechnet und dann die Wörter pro Minute berechnet
-    return getTotalCharacters()  / 5 / gameTime * 60;
+    if(gameTime != null)
+    {
+        return getTotalCharacters()  / 5 / gameTime * 60;
+    }
+    if(words != null)
+    {
+        return getTotalCharacters()  / 5 / timer_wo_limit * 60;
+
+    }
 }
 
 function getTotalCharacters() {
@@ -178,6 +220,8 @@ document.getElementById("game").addEventListener("keyup", ev => {
     //sind sozusagen einfach if anweisungen in fancy musst eich machen weil sie nice sind
     const isSpace = key === " ";
 
+
+
     
 
     const isBackspace = key === "Backspace";
@@ -192,40 +236,63 @@ document.getElementById("game").addEventListener("keyup", ev => {
         return;
     }
 
+    if(gameTime == null) // Checkt im Falle von Wörtern immer ob es das Limit erreicht hat
+    {
+        const words = [...document.querySelectorAll('.word.current, .word.completed')];
+        var woerter_fertig = words.length;
+        console.log(woerter_fertig);
+        console.log(woerter);
+        if(woerter_fertig === woerter || woerter_fertig > woerter)
+        {
+            gameover();
+            return
+        }
+
+
+
+
+    }
+
     
-    function startTimer(duration) {
-        let timer = duration - 1;
-        document.getElementById("info").style.display = "block";
-/*
-        if (timer < 0) {
-                
-                gameover();
-                return;
-            }   
-            let minutes = Math.floor(timer / 60);
-            let seconds = timer % 60;
-            document.getElementById("info").innerHTML = minutes + ":" + seconds;
-            timer--;
-            */
-         intervalID = setInterval(() => {
+    if(woerter == null)
+    {
+        function startTimer(duration) {
+            let timer = duration - 1;
+            document.getElementById("info").style.display = "block";
+    /*
             if (timer < 0) {
+                    
+                    gameover();
+                    return;
+                }   
+                let minutes = Math.floor(timer / 60);
+                let seconds = timer % 60;
+                document.getElementById("info").innerHTML = minutes + ":" + seconds;
+                timer--;
+                */
+             intervalID = setInterval(() => {
+                if (timer < 0) {
+                    
+                    gameover();
+                    return;
+                }
+                minutes = Math.floor(timer / 60);
+                seconds = timer % 60;
+                document.getElementById("info").innerHTML = minutes + ":" + seconds;
+                timer--;
                 
-                gameover();
-                return;
-            }
-            minutes = Math.floor(timer / 60);
-            seconds = timer % 60;
-            document.getElementById("info").innerHTML = minutes + ":" + seconds;
-            timer--;
-            
-        }, 1000);
+            }, 1000);
+        }
+        
+        
+        if (!TimerStarted) {
+            TimerStarted = true;
+            startTimer(gameTime);
+        }
     }
-    
-    
-    if (!TimerStarted) {
-        TimerStarted = true;
-        startTimer(gameTime);
-    }
+
+
+
     
 
    
@@ -252,7 +319,6 @@ document.getElementById("game").addEventListener("keyup", ev => {
             const incorrecLetter = document.createElement("span");
             incorrecLetter.innerHTML = key;
             incorrecLetter.className = "letter incorrect extra";
-
             currentWord.appendChild(incorrecLetter);
         }
     }
@@ -357,5 +423,31 @@ document.getElementById("newGameBtn").addEventListener("click", ev => {
     newGame();
 }
 );
+
+function getNumberofSring(string) {
+    var number = parseInt(string.match(/\d+/));
+    console.log(number);
+    return number;
+}
+
+function startTimeWithOutLimit()
+{
+timer_wo_limit = 0; // Starte den Timer bei 0 Sekunden
+document.getElementById("info").style.display = "block";
+
+intervalID = setInterval(() => {
+    // Hier wird keine Bedingung überprüft, ob der Timer abgelaufen ist.
+    // Der Timer läuft unbegrenzt weiter.
+
+    minutes = Math.floor(timer_wo_limit / 60);
+    seconds = timer_wo_limit % 60;
+    document.getElementById("info").innerHTML = minutes + ":" + seconds;
+    timer_wo_limit++;
+}, 1000);
+}
+
+function stoppTimeWithOutLimit() {
+    clearInterval(intervalID); // Stoppt das Interval mit der angegebenen ID
+}
 
 newGame();
