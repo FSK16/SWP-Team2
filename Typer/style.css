@@ -47,6 +47,7 @@ h1 svg {
     margin: 20px 6px 30px;
 }
 
+
 #buttons {
 
     text-align: right;
@@ -117,9 +118,11 @@ div.word {
     display: inline-block;
     font-family: 'Roboto Mono', monospace;
     margin: 0 5px;
-
+   
+    
 
 }
+
 
 .letter.correct {
     color: var(--primaryColor);
@@ -148,14 +151,14 @@ div.word {
     }
 }
 /*Eigenschaften des Cursors*/
-#cursor {
+#cursor  {
     display: none;
     width: 3px;
     height: 1.6rem;
     background-color: var(--textPrimary);
     position: fixed;
     top: 185px;
-    left: 85px;
+    left: 47px;
     animation: blink 1s infinite;
 }
 /* Ist damit Cuurosr nicht mehr angezeigt wird wenn Blur da ist bzw. kein Fokus mehr ist*/

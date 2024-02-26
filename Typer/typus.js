@@ -1,14 +1,31 @@
-//nur test daten werden dann spä#ter API integrieren
-
-const words = "Kürzlich gab es einen starken Regensturm, der die Straßen überflutete und für Verkehrsbehinderungen sorgte. Die Temperaturen sind jedoch angenehm kühl und erfrischend, was eine willkommene Abwechslung von der Hitze der letzten Wochen darstellt. Es wird erwartet, dass das Wetter in den nächsten Tagen sonniger wird, aber es ist immer ratsam, einen Regenschirm in der Nähe zu haben, da das Wetter in dieser Jahreszeit unvorhersehbar sein kann.".split(" ");
+let words = "Kürzlich gab es einen starken Regensturm, der die Straßen überflutete und für Verkehrsbehinderungen sorgte. Die Temperaturen sind jedoch angenehm kühl und erfrischend, was eine willkommene Abwechslung von der Hitze der letzten Wochen darstellt. Es wird erwartet, dass das Wetter in den nächsten Tagen sonniger wird, aber es ist immer ratsam, einen Regenschirm in der Nähe zu haben, da das Wetter in dieser Jahreszeit unvorhersehbar sein kann.".split(" ");
 let intervalID;
+let wrongCounter = 0;
 
+document.getElementById("languageSelect").addEventListener("change", function() {
+    const selectedLanguage = this.value;
+    let count = 5;
+    fetchWords(selectedLanguage, count);
+    newGame();
+});
 
+async function fetchWords(lang, count) {
+    const url = 'http://localhost:3000/' + lang + '/' + count;
+    console.log('Fetching from URL:', url);
+    try {
+        const response = await fetch(url);
 
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-
-
-
+        const data = await response.json();
+        words = data.string.split(" ");y
+    } catch (error) {
+        console.log('There was a problem with the fetch operation: ' + error.message);
+    }
+}
 // Liste der Button-IDs
 const buttonIds = ["wordsBtn15", "wordsBtn30", "wordsBtn60"];
 
@@ -46,6 +63,7 @@ function removeClass(el,name) {
   el.className = el.className.replace(name,'');
 }
 
+
 // Brauchen wir später nicht mehr aber für jetzt ist es gut
 function randomWord()
 {
@@ -55,11 +73,14 @@ function randomWord()
 
 //Ist damit jedes Wort in einem div ist und jeder Buchstabe in einem span damit wir dann später die Buchstaben einzeln ansprechen können
 function formatWord(word) {
-  return `<div class="word"><span class="letter">${word.split('').join('</span><span class="letter">')}</span></div>`;
+    return `<div class="word" style="user-select: none;"><span class="letter">${word.split('').join('</span><span class="letter">')}</span></div>`;
 }
 
 //Hier wird das Spiel gestartet und die Wörter in den DOM geladen
-function newGame() {
+async function newGame() {
+    document.getElementById("info").style.display = "none";
+    await fetchWords();
+    wrongCounter = 0;
     document.getElementById("words").innerHTML = "";
         document.getElementById('game').classList.add('start');
 
@@ -77,32 +98,72 @@ function newGame() {
     TimerStarted = false;
     document.getElementById("info").style.display = "none";
     
+    // Hier wird dann der Cursor auf den ersten Buchstaben gesetzt
+     const firstLetter = document.querySelector(".letter:first-child");
+    const cursor = document.getElementById("cursor");
+
+    cursor.style.top = firstLetter.getBoundingClientRect().top + 2 + "px";
+    cursor.style.left = firstLetter.getBoundingClientRect().left + "px";
     
     
 
 }
+
+
+
+
 
 function gameover()
 {
     clearInterval(intervalID);
     addClass(document.getElementById('game'), 'over');
-    document.getElementById("info").innerHTML = "WPM: " + getWpm();
-
+    document.getElementById("info").innerHTML = "WPM: " + getWpm() + " | Accuracy: " + getAccuracy().toFixed(2) + "%";
+    
 }
 
 function getWpm() {
-  const words = [...document.querySelectorAll('.word')];
-  const lastTypedWord = document.querySelector('.word.current');
-  const lastTypedWordIndex = words.indexOf(lastTypedWord) + 1;
-  const typedWords = words.slice(0, lastTypedWordIndex);
-  const correctWords = typedWords.filter(word => {
-    const letters = [...word.children];
-    const incorrectLetters = letters.filter(letter => letter.className.includes('incorrect'));
-    const correctLetters = letters.filter(letter => letter.className.includes('correct'));
-    return incorrectLetters.length === 0 && correctLetters.length === letters.length;
-  });
-  return correctWords.length / gameTime * 60;
+    
+    // Hier wird dann die Zeit in Minuten umgerechnet und dann die Wörter pro Minute berechnet
+    return getTotalCharacters()  / 5 / gameTime * 60;
 }
+
+function getTotalCharacters() {
+    const words = [...document.querySelectorAll('.word.current, .word.completed')];
+    const totalCharacters = words.reduce((total, word) => {
+        const letters = [...word.children];
+        const typedLetters = letters.filter(letter => letter.className.includes('correct') || letter.className.includes('incorrect'));
+        return total + typedLetters.length;
+    }, 0);
+    return totalCharacters;
+}
+
+function getCorrectCharacters() {
+    const words = [...document.querySelectorAll('.word.current, .word.completed')];
+    const correctCharacters = words.reduce((total, word) => {
+    const letters = [...word.children];
+    const correctLetters = letters.filter(letter => letter.classList.contains('correct'));
+    return total + correctLetters.length;
+}, 0);
+
+    return correctCharacters;
+}
+
+
+
+
+
+
+function getAccuracy() {
+    
+    return -wrongCounter / getCorrectCharacters() * 100 + 100; 
+    
+   
+}
+/*
+const letterforstart = currentLetter = document.querySelector(".letter.current");
+cursor.style.top = letterforstart.getBoundingClientRect().top + 2 + "px";
+*/
+
 
 // Hier wird dann die Eingabe des Users abgefangen und verarbeitet
 document.getElementById("game").addEventListener("keyup", ev => {
@@ -116,6 +177,8 @@ document.getElementById("game").addEventListener("keyup", ev => {
     // Hier wird dann abgefragt ob es ein Leerzeichen ist
     //sind sozusagen einfach if anweisungen in fancy musst eich machen weil sie nice sind
     const isSpace = key === " ";
+
+    
 
     const isBackspace = key === "Backspace";
 
@@ -133,14 +196,25 @@ document.getElementById("game").addEventListener("keyup", ev => {
     function startTimer(duration) {
         let timer = duration - 1;
         document.getElementById("info").style.display = "block";
+/*
+        if (timer < 0) {
+                
+                gameover();
+                return;
+            }   
+            let minutes = Math.floor(timer / 60);
+            let seconds = timer % 60;
+            document.getElementById("info").innerHTML = minutes + ":" + seconds;
+            timer--;
+            */
          intervalID = setInterval(() => {
             if (timer < 0) {
                 
                 gameover();
                 return;
             }
-            const minutes = Math.floor(timer / 60);
-            const seconds = timer % 60;
+            minutes = Math.floor(timer / 60);
+            seconds = timer % 60;
             document.getElementById("info").innerHTML = minutes + ":" + seconds;
             timer--;
             
@@ -160,7 +234,11 @@ document.getElementById("game").addEventListener("keyup", ev => {
     // hier die verschiebung der Buchstaben und die Auswertung davon (richtig, falsch, übersprungen) wenn es ein Buchstabe ist
     if (isLetter) {
         if (currentLetter) {
-            //alert(key === expected ? "richtig" : "falsch");
+            if (key !== expected) {
+                
+                wrongCounter++;
+                console.log(wrongCounter);
+            }
             addClass(currentLetter, key === expected ? "correct" : "incorrect");
             removeClass(currentLetter, "current");
             if (currentLetter.nextSibling) {
@@ -191,7 +269,8 @@ document.getElementById("game").addEventListener("keyup", ev => {
                 addClass(letter, "skipped");
             });
         }
-        //Hier übliche spielchen current wird entfernt vom Wort und auf nächstes Übergeben 
+        //Hier übliche spielchen current wird entfernt vom Wort und auf nächstes Übergeben
+        addClass(currentWord, "completed");
         removeClass(currentWord, "current");
         addClass(currentWord.nextSibling, "current");
         if (currentLetter) {
@@ -261,7 +340,7 @@ else if (wordsContainer.style.marginTop && parseInt(wordsContainer.style.marginT
     const nextLetter = document.querySelector(".letter.current");
     const cursor = document.getElementById("cursor");
     const nextWort = document.querySelector(".word.current");
-
+    
     // kleine funktion um code schgöner zu machen musste ich ausprobieren :-)
     cursor.style.top = (nextLetter || nextWort).getBoundingClientRect().top + 2 + "px";
     // Am ende angelangt muss cursor ganz nach hinten ans Wort 
@@ -273,7 +352,7 @@ else if (wordsContainer.style.marginTop && parseInt(wordsContainer.style.marginT
 // um Tastatur dicitonary verwenden für ansteuerung
 
 document.getElementById("newGameBtn").addEventListener("click", ev => { 
-    
+    document.getElementById('game').classList.remove('over');
    
     newGame();
 }

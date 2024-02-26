@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typus</title>
-    <link rel="stylesheet" href="../stylesheet/style.css">
+    <link rel="stylesheet" href="../style.css">
+    <script src="  https://unpkg.com/showdown/dist/showdown.min.js"></script>
+ 
 </head>
 
 <body>
@@ -24,8 +26,16 @@
 
                 
                 <div id="info"></div>
+                
                 <div id="buttons">
-                   
+                    <select id="languageSelect">
+                        <option value="en">English</option>
+                        <option value="en_gb">English (GB)</option>
+                        <option value="de">German</option>
+                        <option value="de_at">German (Austria)</option>
+                        <option value="de_ch">German (Switzerland)</option>
+                        <option value="fr">French</option>
+                    </select>
                     <button id="newGameBtn">Nochmal</button>
                     
                     <button id="wordsBtn15">15</button>
