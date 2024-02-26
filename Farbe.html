@@ -20,27 +20,6 @@
       vertical-align: top;
       margin-left: 20px;
     }
-    #preset-colors {
-      width: 200px; /* Breite des Dropdown-Menüs */
-    }
-    .themeBubbles {
-      position: absolute; /* Position absolut */
-      top: calc(100% + 5px); /* Unterhalb des Dropdown-Menüs */
-      left: 0;
-      display: flex; /* Flexbox für die Bubble-Container */
-      max-width: 200px; /* Maximale Breite der Theme-Bubbles */
-      overflow: hidden; /* Überlauf verstecken, falls notwendig */
-      background-color: #fff; /* Hintergrundfarbe der Theme-Bubbles */
-      border: 1px solid #ccc; /* Rahmen um die Theme-Bubbles */
-      padding: 5px; /* Innenabstand der Theme-Bubbles */
-    }
-
-    .themeBubble {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%; /* Runde Form */
-      margin-right: 5px;
-    }
   </style>
 </head>
 <body>
@@ -63,38 +42,39 @@
     <button class="button_change_color" onclick="changeColors()">Ändern</button>
   </div>
 
-
-
   <!-- Dropdown-Menü für vorgefertigte Farbkombinationen -->
 <div id="preset-selector">
     <label for="preset-colors">Vorgefertigte Farbkombination:</label>
     <select id="preset-colors" onchange="applyPreset()">
-      <option value="default">Standard</option>
-      <option value="sewing-pin">Sewing Pin</option>
-      <option value="dino">Dino</option>
-      <option value="solarized-light">Solarized Light</option>
-      <option value="darling">Darling</option>
-      <option value="taro">Taro</option>
-      <option value="beach">Beach</option>
-      <option value="frozen-llama">Frozen Llama</option>
-      <option value="strawberry">Strawberry</option>
-      <option value="menthol">Menthol</option>
-      <option value="sweden">Sweden</option>
-      <option value="grand-prix">Grand Prix</option>
-      <option value="hedge">Hedge</option>
-      <option value="matcha-moccha">Matcha Moccha</option>
-      <option value="cherry-blossom">Cherry Blossom</option>
-      <option value="mint">Mint</option>
-      <option value="superuser">Superuser</option>
-      <option value="nightrunner">Nightrunner</option>
-      <option value="grape">Grape</option>
-      <option value="joker">Joker</option>
-      <option value="matrix">Matrix</option>
-      <option value="husqy">Husqy</option>
-      <option value="fire">Fire</option>
-      <option value="stealth">Stealth</option>
+      <option value="default">Standard⚪⚫</option>
+      <option value="sewing-pin">Sewing Pin🟣⚪</option>
+      <option value="dino">Dino⚪🟢</option>
+      <option value="solarized-light">Solarized Light🟡🟢</option>
+      <option value="darling">Darling🔴⚪</option>
+      <option value="taro">Taro🟣⚫</option>
+      <option value="beach">Beach🟡🔵</option>
+      <option value="frozen-llama">Frozen Llama🔵🟣</option>
+      <option value="strawberry">Strawberry🔴⚪</option>
+      <option value="menthol">Menthol🟢⚪</option>
+      <option value="sweden">Sweden🔵🟡</option>
+      <option value="grand-prix">Grand Prix⚫🟡</option>
+      <option value="hedge">Hedge🟢🟡</option>
+      <option value="matcha-moccha">Matcha Moccha🟤🟢</option>
+      <option value="cherry-blossom">Cherry Blossom⚫🟣</option>
+      <option value="mint">Mint🔵🟢</option>
+      <option value="superuser">Superuser⚫🟢</option>
+      <option value="nightrunner">Nightrunner⚫🟡</option>
+      <option value="grape">Grape🟣🟠</option>
+      <option value="joker">Joker🟣🟢</option>
+      <option value="matrix">Matrix⚫🟢</option>
+      <option value="husqy">Husqy⚫🟣</option>
+      <option value="fire">Fire🔴🔴</option>
+      <option value="stealth">Stealth⚫⚫</option>
     </select>
-    <div class="themeBubbles" id="themeBubbles"></div>
+    <div id="color-indicators">
+        <span id="bg-color-indicator" class="color-indicator"></span>
+        <span id="text-color-indicator" class="color-indicator"></span>
+    </div>
   </div>
   
 
@@ -122,9 +102,9 @@ function applyPreset() {
   // Setze die Farben entsprechend des ausgewählten Vorschlags
   switch(presetColors) {
     case "sewing-pin":
-  bgColor = "#8A2BE2"; 
-  textColor = "#FFFFFF"; 
-  break;
+      bgColor = "#8A2BE2"; 
+      textColor = "#FFFFFF"; 
+      break;
     case "dino":
       bgColor = "#FFFFFF"; 
       textColor = "#00ff7f"; 
@@ -226,20 +206,8 @@ function applyPreset() {
   document.body.style.backgroundColor = bgColor;
   document.body.style.color = textColor;
 
-      // Aktualisiere die Theme-Bubbles
-      var themeBubbles = document.getElementById("themeBubbles");
-      themeBubbles.innerHTML = ''; // Zurücksetzen der Inhalte
 
-      // Erstelle und füge die Theme-Bubbles hinzu
-      var bubble1 = document.createElement("div");
-      bubble1.className = "themeBubble";
-      bubble1.style.backgroundColor = bgColor;
-      themeBubbles.appendChild(bubble1);
 
-      var bubble2 = document.createElement("div");
-      bubble2.className = "themeBubble";
-      bubble2.style.backgroundColor = textColor;
-      themeBubbles.appendChild(bubble2);
 }
   </script>
 </body>
