@@ -132,9 +132,10 @@ async function newGame() {
 
     cursor.style.top = firstLetter.getBoundingClientRect().top + 2 + "px";
     cursor.style.left = firstLetter.getBoundingClientRect().left + "px";
-    if(words != null)
-    {
+    if (gameTime == null) {
         startTimeWithOutLimit();
+    } else {
+        startTimer(gameTime);
     }
     
     
@@ -152,7 +153,7 @@ function gameover()
     }
     clearInterval(intervalID);
     addClass(document.getElementById('game'), 'over');
-    document.getElementById("info").innerHTML = "WPM: " + getWpm() + " | Accuracy: " + getAccuracy().toFixed(2) + "%";
+    document.getElementById("info").innerHTML = "WPM: " + getWpm().toFixed(2) + " | Accuracy: " + getAccuracy().toFixed(2) + "%";
 }
 
 function getWpm() {
@@ -221,7 +222,6 @@ document.getElementById("game").addEventListener("keyup", ev => {
     const isSpace = key === " ";
 
 
-
     
 
     const isBackspace = key === "Backspace";
@@ -252,6 +252,8 @@ document.getElementById("game").addEventListener("keyup", ev => {
 
 
     }
+
+    
 
     
     if(woerter == null)
