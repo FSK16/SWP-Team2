@@ -8,6 +8,14 @@
     --primaryColor: #39cccc;
 }
 
+
+.material-symbols-outlined{
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
 body {
 
     font-family: 'Roboto', sans-serif;
