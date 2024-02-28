@@ -44,33 +44,33 @@
 
   <!-- Dropdown-Menü für vorgefertigte Farbkombinationen -->
 <div id="preset-selector">
-    <label for="preset-colors">Vorgefertigte Farbkombination:</label>
-    <select id="preset-colors" onchange="applyPreset()">
-      <option value="default">Standard</option>
-      <option value="sewing-pin">Sewing Pin</option>
-      <option value="dino">Dino</option>
-      <option value="solarized-light">Solarized Light</option>
-      <option value="darling">Darling</option>
-      <option value="taro">Taro</option>
-      <option value="beach">Beach</option>
-      <option value="frozen-llama">Frozen Llama</option>
-      <option value="strawberry">Strawberry</option>
-      <option value="menthol">Menthol</option>
-      <option value="sweden">Sweden</option>
-      <option value="grand-prix">Grand Prix</option>
-      <option value="hedge">Hedge</option>
-      <option value="matcha-moccha">Matcha Moccha</option>
-      <option value="cherry-blossom">Cherry Blossom</option>
-      <option value="mint">Mint</option>
-      <option value="superuser">Superuser</option>
-      <option value="nightrunner">Nightrunner</option>
-      <option value="grape">Grape</option>
-      <option value="joker">Joker</option>
-      <option value="matrix">Matrix</option>
-      <option value="husqy">Husqy</option>
-      <option value="fire">Fire</option>
-      <option value="stealth">Stealth</option>
-    </select>
+  <label for="preset-colors">Vorgefertigte Farbkombination:</label>
+  <select id="preset-colors" onchange="applyPreset()">
+    <option value="default">Standard⚪⚫</option>
+    <option value="sewing-pin">Sewing Pin🟣⚪</option>
+    <option value="dino">Dino⚪🟢</option>
+    <option value="solarized-light">Solarized Light🟡🟢</option>
+    <option value="darling">Darling🔴⚪</option>
+    <option value="taro">Taro🟣⚫</option>
+    <option value="beach">Beach🟡🔵</option>
+    <option value="frozen-llama">Frozen Llama🔵🟣</option>
+    <option value="strawberry">Strawberry🔴⚪</option>
+    <option value="menthol">Menthol🟢⚪</option>
+    <option value="sweden">Sweden🔵🟡</option>
+    <option value="grand-prix">Grand Prix⚫🟡</option>
+    <option value="hedge">Hedge🟢🟡</option>
+    <option value="matcha-moccha">Matcha Moccha🟤🟢</option>
+    <option value="cherry-blossom">Cherry Blossom⚫🟣</option>
+    <option value="mint">Mint🔵🟢</option>
+    <option value="superuser">Superuser⚫🟢</option>
+    <option value="nightrunner">Nightrunner⚫🟡</option>
+    <option value="grape">Grape🟣🟠</option>
+    <option value="joker">Joker🟣🟢</option>
+    <option value="matrix">Matrix⚫🟢</option>
+    <option value="husqy">Husqy⚫🟣</option>
+    <option value="fire">Fire🔴🔴</option>
+    <option value="stealth">Stealth⚫⚫</option>
+  </select>
   </div>
   
 
@@ -201,6 +201,7 @@ function applyPreset() {
   // Aktualisiere die Hintergrund- und Textfarben
   document.body.style.backgroundColor = bgColor;
   document.body.style.color = textColor;
+
 
 
 }
