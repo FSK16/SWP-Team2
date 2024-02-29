@@ -11,8 +11,6 @@ const game = document.getElementById('game');
 
 
 
-//
-
 
 
 game.addEventListener('focus', () => {
@@ -24,7 +22,6 @@ game.addEventListener('blur', () => {
     isGameFocused = false;
     console.log("Game is not focused");
 });
-//
 
 document.getElementById("languageSelect").addEventListener("change", function() {
     const selectedLanguage = this.value;
@@ -230,9 +227,13 @@ document.getElementById("game").addEventListener("keyup", ev => {
 
     // Überprüfung, ob das Wortlimit erreicht ist
     if(gameTime == null) {
-        const words = [...document.querySelectorAll('.word.current, .word.completed')];
-        var woerter_fertig = words.length;
-        if(woerter_fertig === woerter || woerter_fertig > woerter) {
+        const words = [...document.querySelectorAll('.word')];
+        
+        const lastWord = document.querySelector(".word:last-child");
+        const lastLetter = lastWord.querySelector(".letter:last-child");
+        
+        if (currentLetter === lastLetter && currentWord == lastWord) {
+            console.log('Das Spiel ist fertig');
             gameover();
             return;
         }
