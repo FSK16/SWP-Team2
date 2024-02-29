@@ -5,8 +5,26 @@ let timer_wo_limit;
 let woerter;
 let gameTime = 15;
 let TimerStarted = false;
-
 const buttonIds = ["wordsBtn15", "wordsBtn30", "wordsBtn60", "wordsBtn200woerter", "wordsBtn300woerter", "wordsBtn400woerter", "wordsBtn10woerter" ];
+let isGameFocused = false;
+const game = document.getElementById('game');
+
+
+
+//
+
+
+
+game.addEventListener('focus', () => {
+    isGameFocused = true;
+    console.log("Game is focused");
+});
+
+game.addEventListener('blur', () => {
+    isGameFocused = false;
+    console.log("Game is not focused");
+});
+//
 
 document.getElementById("languageSelect").addEventListener("change", function() {
     const selectedLanguage = this.value;
@@ -203,6 +221,7 @@ document.getElementById("game").addEventListener("keyup", ev => {
     window.addEventListener('keydown', checkCapsLock);
     window.addEventListener('keyup', checkCapsLock);
 
+    
 
     if (document.querySelector('#game.over')) {
         console.log('Game is over');
@@ -229,15 +248,20 @@ document.getElementById("game").addEventListener("keyup", ev => {
             let seconds = timer % 60;
             document.getElementById("info").innerHTML = minutes + ":" + seconds;
        
-        intervalID = setInterval(() => {
-            timer--;
-            if (timer <= 0) {
-                gameover();
-                return;
+            intervalID = setInterval(() => {
+            if (isGameFocused)
+            {
+                timer--;
+                if (timer <= 0) {
+                    gameover();
+                    return;
+                }
+            
+                
+                minutes = Math.floor(timer / 60);
+                seconds = timer % 60;
+                document.getElementById("info").innerHTML = minutes + ":" + seconds;
             }
-            minutes = Math.floor(timer / 60);
-            seconds = timer % 60;
-            document.getElementById("info").innerHTML = minutes + ":" + seconds;
         }, 1000);
 }
         if (!TimerStarted) {

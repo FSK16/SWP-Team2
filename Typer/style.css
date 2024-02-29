@@ -78,30 +78,13 @@ div#game {
     position: relative;
 }
 
-div#game:focus {
-    outline: 0;
-}
+
 
 #words {
     filter: blur(5px);
     color: var(--textSecondary);
 }
-/* Hier ist wenn es nicht mehr gefokust ist, es verblasst für fancy shit und so */
-#game:focus #words {
-    filter: blur(0);
 
-}
-/*  Hier wird der Text ausgegeben wenn blur aktiv ist */
-#focus-error {
-    position: absolute;
-    inset: 0;
-    text-align: center;
-    padding: 35px;
-}
-
-#game:focus #focus-error {
-    display: none;
-}
 
 div.word {
     display: inline-block;
@@ -125,9 +108,29 @@ div.word {
 .letter.incorrect {
     color: #f55;
 }
+/* Alles für focus error */
 
-/*Eigenschaften des Cursors*/
-#cursor  {
+/* When game is in focus, words are clear */
+#game:focus #words {
+    filter: blur(0);
+}
+
+/* The focus-error element */
+#focus-error {
+    position: absolute;
+    inset: 0;
+    text-align: center;
+    padding: 35px;
+}
+
+/* When game is in focus, focus-error is hidden */
+#game:focus #focus-error,
+#game.over #focus-error {
+    display: none;
+}
+
+/* The cursor element */
+#cursor {
     display: none;
     width: 3px;
     height: 1.6rem;
@@ -137,27 +140,44 @@ div.word {
     left: 47px;
     animation: blink 1s infinite;
 }
-/* Ist damit Cuurosr nicht mehr angezeigt wird wenn Blur da ist bzw. kein Fokus mehr ist*/
+
+/* When game is in focus, cursor is displayed */
 #game:focus #cursor {
     display: block;
 }
-#game.over {
-    filter: blur(5px);
-    
-}
 
-#game.over #words{
-    opacity: 0.5;
-    filter: blur(0px);
-}
-
+/* When game is over and in focus, cursor is hidden */
 #game.over:focus #cursor {
     display: none;
 }
 
-#game.over #focus-error {
-    display: none;
+/* When game is over, apply blur and reduce words opacity */
+#game.over {
+    filter: blur(5px);
 }
+
+#game.over #words {
+    opacity: 0.5;
+    filter: blur(0px);
+}
+
+/* Animation for cursor blink */
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
 
 #game.start {
     filter: none;
@@ -190,20 +210,7 @@ div.word {
 }
 
 
-/*  Ist damit der Curos blinkt */
-@keyframes blink {
-    0% {
-        opacity: 1;
-    }
 
-    50% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
 @media (max-width: 1500px)
 {
     main{
