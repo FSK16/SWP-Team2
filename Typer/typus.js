@@ -97,6 +97,8 @@ async function newGame() {
     generateWords();
     positionCursor();
     startGameTimer();
+    document.getElementById('result_wpm').innerHTML = '';
+    document.getElementById('result_acc').innerHTML = '';
     
 }
 
@@ -154,7 +156,12 @@ function gameover() {
     }
     clearInterval(intervalID);
     addClass(document.getElementById('game'), 'over');
-    document.getElementById("info").innerHTML = "WPM: " + getWpm().toFixed(2) + " | Accuracy: " + getAccuracy().toFixed(2) + "%";
+
+    var wpm = getWpm().toFixed(2);
+    var accuray = getAccuracy().toFixed(2) + "%";
+    document.getElementById('result_wpm').innerHTML = wpm;
+    document.getElementById('result_acc').innerHTML = accuray;
+    openPopUp('popup_finished', 1000, 545, '#333741')
 }
 
 // Funktion zur Berechnung der Wörter pro Minute (WPM)
@@ -398,3 +405,69 @@ function stoppTimeWithOutLimit() {
 }
 
 newGame();
+
+function openPopUp(windowid,  width, height, color)
+{
+    var popup = document.getElementById(windowid);
+    var verdunkelung = document.getElementById('overlay');
+    verdunkelung.style.display = 'block';
+
+    popup.style.transition = 'opacity 0.5s ease';
+    popup.style.width = width + 'px';
+    popup.style.height = height + 'px';
+    popup.style.backgroundColor = color;
+
+    setTimeout(function () {
+        popup.style.opacity = '1';
+      }, 10);
+    setTimeout(function () {
+    popup.classList.add('popup_show');
+    }, 0);
+
+}
+function closePopUp(windowid)
+{
+    var popup = document.getElementById(windowid);
+    var verdunkelung = document.getElementById('overlay');
+    popup.style.transition = 'opacity 0.2s ease';
+    popup.style.width = '';
+    popup.style.height = '';
+    popup.style.backgroundColor = '';
+    setTimeout(function () {
+      popup.style.opacity = '0';
+    }, 10);
+  
+    verdunkelung.style.display = 'none';
+    setTimeout(function () {
+      popup.classList.remove('popup_show');
+    }, 200);
+}
+function switchPopup(windowid_old, windowid_new, width, height, color)
+{
+    var popup_old = document.getElementById(windowid_old);
+    var popup_new  = document.getElementById(windowid_new);
+
+    popup_old.style.transition = 'opacity 0.2s ease';
+    popup_old.style.width = '';
+    popup_old.style.height = '';
+    popup_old.style.backgroundColor = '';
+    setTimeout(function () {
+        popup_old.style.opacity = '0';
+    }, 10);
+  
+    setTimeout(function () {
+        popup_old.classList.remove('popup_show');
+    }, 200);
+
+    popup_new.style.transition = 'opacity 0.5s ease';
+    popup_new.style.width = width + 'px';
+    popup_new.style.height = height + 'px';
+    popup_new.style.backgroundColor = color;
+    
+    setTimeout(function () {
+        popup_new.style.opacity = '1';
+      }, 10);
+    setTimeout(function () {
+    popup_new.classList.add('popup_show');
+    }, 0);
+}

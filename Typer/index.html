@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typus</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../stylesheet/style.css">
+
     <script src="  https://unpkg.com/showdown/dist/showdown.min.js"></script>
  
 </head>
@@ -56,6 +58,34 @@
                 <div id="words"></div>
                 <div id="cursor"></div>
                 <div id="focus-error">Klicken um zu tippen</div>
+            </div>
+            <div id="overlay"></div>
+            <div id="popup_finished" class="popupwindow">
+                <div class="finished_popup">
+                    <div class="finished_headline">
+                        <h2>Tipptest abgeschlossen!</h2>
+                    </div>
+                    <p>Dein Tipptest: </p>
+                    <div class="finished_popup_ranking">
+                        <div class="part_50p">
+                            <h1>WPM</h1>
+                            <p>Geschwindigkeit</p>
+                            <h1 style="margin-bottom: 40px;" id="result_wpm"></h1>
+                            <span>... Wörter wurden pro Minute getippt.</span>
+        
+        
+                        </div>
+                        <div class="part_50p">
+                            <h1>ACC</h1>
+                            <p>Genauigkeit</p>
+                            <h1 style="margin-bottom: 40px;" id="result_acc"></h1>
+                            <span>... der Wörter wurden korrekt getippt.</span>
+                        </div>
+                    </div>
+                    <button class="button_normal fr mt20" onclick="closePopUp('popup_finished')">
+                        <span> Tippergebnis speichern und Fenster schließen</span>
+                    </button>
+                </div>
             </div>
             </main>
     <script src="typus.js" defer> </script>
