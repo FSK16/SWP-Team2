@@ -97,8 +97,9 @@ async function newGame() {
     generateWords();
     positionCursor();
     startGameTimer();
-    document.getElementById('result_wpm').innerHTML = '';
-    document.getElementById('result_acc').innerHTML = '';
+    resetStats();
+
+
     
 }
 
@@ -161,6 +162,8 @@ function gameover() {
     var accuray = getAccuracy().toFixed(2) + "%";
     document.getElementById('result_wpm').innerHTML = wpm;
     document.getElementById('result_acc').innerHTML = accuray;
+    document.getElementById('wpm_input').value = wpm;
+    document.getElementById('acc_input').value = accuray;
     openPopUp('popup_finished', 1000, 545, '#333741')
 }
 
@@ -470,4 +473,11 @@ function switchPopup(windowid_old, windowid_new, width, height, color)
     setTimeout(function () {
     popup_new.classList.add('popup_show');
     }, 0);
+}
+function resetStats()
+{
+    document.getElementById('result_wpm').innerHTML = '';
+    document.getElementById('acc_input').value = '';
+    document.getElementById('wpm_input').value = '';
+    document.getElementById('result_acc').innerHTML = '';
 }

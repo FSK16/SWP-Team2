@@ -82,9 +82,15 @@
                             <span>... der Wörter wurden korrekt getippt.</span>
                         </div>
                     </div>
-                    <button class="button_normal fr mt20" onclick="closePopUp('popup_finished')">
-                        <span> Tippergebnis speichern und Fenster schließen</span>
-                    </button>
+                    <form action="insert_stats.php" method="POST">
+                        <input type="text" name="acc" id="acc_input" style="display: none;">
+                        <input type="text" name="wpm" id="wpm_input" style="display: none;">
+    
+                        <button type="submit" name="submit" class="button_normal fr mt20" onclick="closePopUp('popup_finished')">
+                            <span> Tippergebnis speichern und Fenster schließen</span>
+                        </button>
+                    </form> 
+                   
                 </div>
             </div>
             </main>
