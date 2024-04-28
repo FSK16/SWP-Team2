@@ -8,6 +8,7 @@ let TimerStarted = false;
 const buttonIds = ["wordsBtn15", "wordsBtn30", "wordsBtn60", "wordsBtn200woerter", "wordsBtn300woerter", "wordsBtn400woerter", "wordsBtn10woerter" ];
 let isGameFocused = false;
 const game = document.getElementById('game');
+let interval = null;
 
 
 
@@ -150,12 +151,53 @@ function startGameTimer() {
         startTimer(gameTime);
     }
 }
+
+let values = [];
+let time = 1;
+
+function startInt(){
+    console.log("works");
+    interval = setInterval(()=>{
+        let value = getTotalCharacters() / 5 / time * 60;
+          values.push(value);
+          time++;
+          console.log(values);
+      }, 1000)
+      
+    }
+
+    function displayRes(){
+    const xValues = [...Array(15).keys()].map(x => x + 1);
+    const yValues = values.reverse();
+    console.log(yValues);
+
+    new Chart("myChart", {
+        type: "line",
+        data: {
+            labels: xValues,
+            datasets: [{
+                fill: false,
+                lineTension: 0,
+                backgroundColor: "rgba(0,0,255,1.0)",
+                borderColor: "rgba(0,0,255,0.1)",
+                data: values
+            }]
+        },
+        options: {
+            legend: { display: false },
+            scales: {
+                yAxes: [{ ticks: { min: 10, max: 60 } }],
+            }
+        }
+    }); 
+}  
 // Funktion zum Beenden des Spiels
 function gameover() {
     if(words != null) {
         stoppTimeWithOutLimit();
     }
     clearInterval(intervalID);
+    clearInterval(interval);
     addClass(document.getElementById('game'), 'over');
 
     var wpm = getWpm().toFixed(2);
@@ -164,7 +206,8 @@ function gameover() {
     document.getElementById('result_acc').innerHTML = accuray;
     document.getElementById('wpm_input').value = wpm;
     document.getElementById('acc_input').value = accuray;
-    openPopUp('popup_finished', 1000, 545, '#333741')
+    openPopUp('popup_finished', 1000, 545, '#333741');
+    displayRes();
 }
 
 // Funktion zur Berechnung der Wörter pro Minute (WPM)
@@ -276,6 +319,7 @@ document.getElementById("game").addEventListener("keyup", ev => {
         }, 1000);
 }
         if (!TimerStarted) {
+            startInt();
             TimerStarted = true;
             startTimer(gameTime);
         }

@@ -1,99 +1,189 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typus</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../stylesheet/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+
 
     <script src="  https://unpkg.com/showdown/dist/showdown.min.js"></script>
- 
+
 </head>
 
 <body>
     <main>
         <h1>
-        <!--Hier snacke ich mir  die Schriftarten für den Typer (google fonts ist king)-->
+            <!--Hier snacke ich mir  die Schriftarten für den Typer (google fonts ist king)-->
             <svg xmlns="http://www.w3.org/2000/svg" height="1em"
                 viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-               
+
                 <path
                     d="M64 112c-8.8 0-16 7.2-16 16V384c0 8.8 7.2 16 16 16H512c8.8 0 16-7.2 16-16V128c0-8.8-7.2-16-16-16H64zM0 128C0 92.7 28.7 64 64 64H512c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM176 320H400c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V336c0-8.8 7.2-16 16-16zm-72-72c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H120c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H120c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H200c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H200c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H280c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H280c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H360c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H360c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16zm64 96c0-8.8 7.2-16 16-16h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H440c-8.8 0-16-7.2-16-16V248zm16-96h16c8.8 0 16 7.2 16 16v16c0 8.8-7.2 16-16 16H440c-8.8 0-16-7.2-16-16V168c0-8.8 7.2-16 16-16z" />
             </svg>
             Typus
-            </h1>
-            <!-- Hier wird das Spiel angezeigt sollte glaub ich keine Erklöä#rung brauchen -->
+        </h1>
+        <!-- Hier wird das Spiel angezeigt sollte glaub ich keine Erklöä#rung brauchen -->
 
-            
-            <div id="info"></div>
-            
-                <div class="typer_head_lang_time" id="buttons">
-                    <select id="languageSelect">
-                        <option value="en">English</option>
-                        <option value="en_gb">English (GB)</option>
-                        <option value="de">German</option>
-                        <option value="de_at">German (Austria)</option>
-                        <option value="de_ch">German (Switzerland)</option>
-                        <option value="fr">French</option>
-                    </select>
-                    <button id="newGameBtn">Nochmal</button>
-                    
-                    <button id="wordsBtn15">15s</button>
-                    <button id="wordsBtn30">30s</button>
-                    <button id="wordsBtn60">60s</button>
-                    <button id="wordsBtn10woerter">10 Wörter</button>
-                    <button id="wordsBtn200woerter">200 Wörter</button>
-                    <button id="wordsBtn300woerter">300 Wörter</button>
-                    <button id="wordsBtn400woerter">400 Wöter</button>
-                </div>
-                
-                <div id="capLockNotify" style="display: none;">
-                    <span class="material-symbols-outlined">Caps Lock</span>
-                    
-                </div>
 
-            </div>
-            <div id="game" tabindex="0">
-                <div id="words"></div>
-                <div id="cursor"></div>
-                <div id="focus-error">Klicken um zu tippen</div>
-            </div>
-            <div id="overlay"></div>
-            <div id="popup_finished" class="popupwindow">
-                <div class="finished_popup">
-                    <div class="finished_headline">
-                        <h2>Tipptest abgeschlossen!</h2>
+        <div id="info"></div>
+
+        <div class="typer_head_lang_time" id="buttons">
+            <select id="languageSelect">
+                <option value="en">English</option>
+                <option value="en_gb">English (GB)</option>
+                <option value="de">German</option>
+                <option value="de_at">German (Austria)</option>
+                <option value="de_ch">German (Switzerland)</option>
+                <option value="fr">French</option>
+            </select>
+            <button id="newGameBtn">Nochmal</button>
+
+            <button id="wordsBtn15">15s</button>
+            <button id="wordsBtn30">30s</button>
+            <button id="wordsBtn60">60s</button>
+            <button id="wordsBtn10woerter">10 Wörter</button>
+            <button id="wordsBtn200woerter">200 Wörter</button>
+            <button id="wordsBtn300woerter">300 Wörter</button>
+            <button id="wordsBtn400woerter">400 Wöter</button>
+        </div>
+
+        <div id="capLockNotify" style="display: none;">
+            <span class="material-symbols-outlined">Caps Lock</span>
+
+        </div>
+
+        </div>
+        <div id="game" tabindex="0">
+            <div id="words"></div>
+            <div id="cursor"></div>
+            <div id="focus-error">Klicken um zu tippen</div>
+        </div>
+
+        <div class="container">
+            <div class="keyboard_wrapp">
+                <div class="keyboard_lights"></div>
+                <div class="keyboard_keys">
+                    <div class="row">
+                        <div class="keys">`</div>
+                        <div class="keys">1</div>
+                        <div class="keys">2</div>
+                        <div class="keys">3</div>
+                        <div class="keys">4</div>
+                        <div class="keys">5</div>
+                        <div class="keys">6</div>
+                        <div class="keys">7</div>
+                        <div class="keys">8</div>
+                        <div class="keys">9</div>
+                        <div class="keys">0</div>
+                        <div class="keys">-</div>
+                        <div class="keys">=</div>
+                        <div class="keys backspace_key">Backspace</div>
                     </div>
-                    <p>Dein Tipptest: </p>
-                    <div class="finished_popup_ranking">
-                        <div class="part_50p">
-                            <h1>WPM</h1>
-                            <p>Geschwindigkeit</p>
-                            <h1 style="margin-bottom: 40px;" id="result_wpm"></h1>
-                            <span>... Wörter wurden pro Minute getippt.</span>
-        
-        
-                        </div>
-                        <div class="part_50p">
-                            <h1>ACC</h1>
-                            <p>Genauigkeit</p>
-                            <h1 style="margin-bottom: 40px;" id="result_acc"></h1>
-                            <span>... der Wörter wurden korrekt getippt.</span>
-                        </div>
+                    <div class="row">
+                        <div class="keys tab_key">Tab</div>
+                        <div class="keys">Q</div>
+                        <div class="keys">W</div>
+                        <div class="keys">E</div>
+                        <div class="keys">R</div>
+                        <div class="keys">T</div>
+                        <div class="keys">Y</div>
+                        <div class="keys">U</div>
+                        <div class="keys">I</div>
+                        <div class="keys">O</div>
+                        <div class="keys">P</div>
+                        <div class="keys">{</div>
+                        <div class="keys">}</div>
+                        <div class="keys slash_key">\</div>
                     </div>
-                    <form action="insert_stats.php" method="POST">
-                        <input type="text" name="acc" id="acc_input" style="display: none;">
-                        <input type="text" name="wpm" id="wpm_input" style="display: none;">
+                    <div class="row">
+                        <div class="keys caps_lock_key">Caps Lock</div>
+                        <div class="keys">A</div>
+                        <div class="keys">S</div>
+                        <div class="keys">D</div>
+                        <div class="keys">F</div>
+                        <div class="keys">G</div>
+                        <div class="keys">H</div>
+                        <div class="keys">J</div>
+                        <div class="keys">K</div>
+                        <div class="keys">L</div>
+                        <div class="keys">;</div>
+                        <div class="keys">"</div>
+                        <div class="keys enter_key">Enter</div>
+                    </div>
+                    <div class="row">
+                        <div class="keys shift_key shift_left">Shift</div>
+                        <div class="keys">Z</div>
+                        <div class="keys">X</div>
+                        <div class="keys">C</div>
+                        <div class="keys">V</div>
+                        <div class="keys">B</div>
+                        <div class="keys">N</div>
+                        <div class="keys">M</div>
+                        <div class="keys"><</div>
+                        <div class="keys">></div>
+                        <div class="keys">/</div>
+                        <div class="keys">?</div>
+                        <div class="keys shift_key shift_right">Shift</div>
+                    </div>
+                    <div class="row">
+                        <div class="keys ctrl_key ctrl_left">Ctrl</div>
+                        <div class="keys win_key">Win</div>
+                        <div class="keys alt_key alt_left">Alt</div>
+                        <div class="keys space_key"></div>
+                        <div class="keys alt_key alt_right">Alt</div>
+                        <div class="keys">Fn</div>
+                        <div class="keys ctrl_key ctrl_right">Ctrl</div>
+                    </div>
+                </div>
+            </div> 
+        </div>
     
-                        <button type="submit" name="submit" class="button_normal fr mt20" onclick="closePopUp('popup_finished')">
-                            <span> Tippergebnis speichern und Fenster schließen</span>
-                        </button>
-                    </form> 
-                   
+        <script src="/CSS Keyboard/main.js"></script>
+        <div id="overlay"></div>
+        <div id="popup_finished" class="popupwindow">
+            <div class="finished_popup">
+                <div class="finished_headline">
+                    <h2>Tipptest abgeschlossen!</h2>
                 </div>
+                <p>Dein Tipptest: </p>
+                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+                
+                <div class="finished_popup_ranking">
+                    <div class="part_50p">
+                        <h1>WPM</h1>
+                        <p>Geschwindigkeit</p>
+                        <h1 style="margin-bottom: 40px;" id="result_wpm"></h1>
+                        <span>... Wörter wurden pro Minute getippt.</span>
+
+
+                    </div>
+                    <div class="part_50p">
+                        <h1>ACC</h1>
+                        <p>Genauigkeit</p>
+                        <h1 style="margin-bottom: 40px;" id="result_acc"></h1>
+                        <span>... der Wörter wurden korrekt getippt.</span>
+                    </div>
+                </div>
+                <form action="insert_stats.php" method="POST">
+                    <input type="text" name="acc" id="acc_input" style="display: none;">
+                    <input type="text" name="wpm" id="wpm_input" style="display: none;">
+
+                    <button type="submit" name="submit" class="button_normal fr mt20"
+                        onclick="closePopUp('popup_finished')">
+                        <span> Tippergebnis speichern und Fenster schließen</span>
+                    </button>
+                </form>
+
             </div>
-            </main>
+        </div>
+    </main>
     <script src="typus.js" defer> </script>
 </body>
+
 </html>

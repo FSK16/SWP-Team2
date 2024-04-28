@@ -3,434 +3,16 @@
 
 html {
     scroll-behavior: smooth;
-  }
+}
 
-p, h1, h2, h3, h4, h5, span{
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+span {
     font-family: monospace;
-}
-
-body {
-
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--bgColor);
-    color: var(--textPrimary);
-    font-size: 1.4rem;
-
-}
-
-main {
-    width: 1400px;
-margin:auto;
-    padding: 10px;
-    height: 100vh;
-    padding-top: 50px;
-
-}
-
-h1 {
-    color: var(--textPrimary);
-   
-
-}
-
-h1 svg {
-    width: 40px;
-    fill: var(--primaryColor);
-}
-
-
-:root {
-
-    --bgColor: #333;
-    --textPrimary: #fff;
-    --textSecondary: #666;
-    --primaryColor: #39cccc;
-    --base: 0.6rem;
-}
-
-
-
-
-
-.typrusheader{
-    background-color: rgb(235, 235, 235);
-    width: 100%;
-    height: 200px;
-}
-.headercontent{
-    display: flex;
-    align-content: center;
-    flex-wrap: wrap;
-    width: 1400px;
-    padding: 10px;
-    margin: auto;
-    height:200px
-    
-}
-header button{
-    width: 180px;
-    height: 50px;
-    border: 0;
-    background-color: rgb(204, 228, 228);
-    margin-left:5px
-
-}
-header button h3{
-    margin: auto;
-    font-weight: 700;
-
-}
-header button:hover{
-    background-color: rgb(58,203,203);
-    transition: 0.5s ease;
-}
-.left{
-    width: 50%;
-    display: flex;
-    align-content: center;
-    flex-wrap: wrap;
-}
-.right{
-    width: 50%;
-    display: flex;
-    align-content: center;
-    flex-wrap: wrap;
-    flex-direction: row-reverse;
-    padding-right:10px;
-}
-.carousel-item img{
-    height: auto;
-    width: 100%;
-}
-.carousel-inner{
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    overflow: hidden; 
-    height: 55vh;
-    width: 100%;
-}
-
-
-
-#header {
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: 20px 6px 30px;
-}
-
-#buttons {
-
-    text-align: right;
-}
-
-#timer {
-    color: var(--primaryColor);
-}
-
-button {
-    background-color: rgba(255, 255, 255, .2);
-    border: none;
-    border-radius: 5px;
-    color: rgba(255, 255, 255, .5);
-    padding: 5px 20px;
-    cursor: pointer;
-}
-/*Overflow hidden ist hier wichtig damit wird nicht alles angezeigt sondern nur ein Teil*/
-div#game {
-    line-height: 35px;
-    height: 105px;
-    overflow: hidden;
-    position: relative;
-}
-
-div#game:focus {
-    outline: 0;
-}
-
-#words {
-    filter: blur(5px);
-    color: var(--textSecondary);
-}
-/* Hier ist wenn es nicht mehr gefokust ist, es verblasst für fancy shit und so */
-#game:focus #words {
-    filter: blur(0);
-
-}
-/*  Hier wird der Text ausgegeben wenn blur aktiv ist */
-#focus-error {
-    position: absolute;
-    inset: 0;
-    text-align: center;
-    padding: 35px;
-}
-
-#game:focus #focus-error {
-    display: none;
-}
-
-div.word {
-    display: inline-block;
-    font-family: 'Roboto Mono', monospace;
-    margin: 0 5px;
-
-
-}
-
-.letter.correct {
-    color: var(--primaryColor);
-}
-
-.letter.skipped {
-    text-decoration: #f55 wavy underline;
-
-}
-
-.letter.incorrect {
-    color: #f55;
-}
-
-/*Eigenschaften des Cursors*/
-#cursor {
-    display: none;
-    width: 3px;
-    height: 1.6rem;
-    background-color: var(--textPrimary);
-    position: fixed;
-    top: 185px;
-    left: 47px;
-    animation: blink 1s infinite;
-}
-/* Ist damit Cuurosr nicht mehr angezeigt wird wenn Blur da ist bzw. kein Fokus mehr ist*/
-#game:focus #cursor {
-    display: block;
-}
-.typer-deck{
-    width: 100%;
-    background-color: var(--bgColor);
-    color: var(--textPrimary);
-}
-.facts{
-    height: 200px;
-    width: 1400px;
-    margin: auto;
-    justify-content: center;
-    display: flex;
-    padding: 10px;
-    margin-top: 40px;
-}
-.box{
-    height: 150px;
-    width: 400px;
-    float: left;
-    background-color: #f5f5f5;
-    margin-left: 20px;
-    border: 1px solid rgb(194, 194, 194);
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-}
-.box_fact{
-    color: var(--primaryColor);
-    font-weight: 600;
-    display: flex;
-    margin-bottom: 0px;
-
-}
-.description{
-    margin-top: -5px;
-    color: var(--textSecondary);
-    font-size: 20px;
-}
-.arrow{
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-.arrow img{
-    margin-bottom: 10px;
-}
-.arrow p{
-    display: flex;
-    margin-bottom: 0px;
-    color: var(--textSecondary);
-    font-size: 23px;
-}
-
-
-
-.headercontent{
-    display: flex;
-    align-content: center;
-    flex-wrap: wrap;
-    width: 1400px;
-    padding: 10px;
-    margin: auto;
-    height:200px
-    
-}
-header button{
-    width: 180px;
-    height: 50px;
-    border: 0;
-    background-color: rgb(204, 228, 228);
-    margin-left:5px
-
-}
-header button h3{
-    margin: auto;
-    font-weight: 700;
-
-}
-.left{
-    width: 50%;
-    display: flex;
-    align-content: center;
-    flex-wrap: wrap;
-}
-.right{
-    width: 50%;
-    display: flex;
-    align-content: center;
-    flex-wrap: wrap;
-    flex-direction: row-reverse;
-    padding-right:10px;
-}
-
-
-.card {
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-    width: 800px;
-    max-width: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
-}
-
-.card-header {
-    background: linear-gradient(135deg, #3498db, #9b59b6);
-    color: #fff;
-    border-radius: 15px 15px 0 0;
-    text-align: center;
-    padding: 20px 0;
-    font-size: 36px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    color: #5e5d5d;
-    font-size: 1rem;
-}
-.btn-primary {
-    background: linear-gradient(135deg, #3498db, #9b59b6);
-    border: none;
-    border-radius: 15px;
-    transition: background 0.3s, transform 0.3s;
-    color: #fff;
-    font-size: 20px;
-    padding: 15px;
-}
-
-.btn-primary:hover {
-    background: linear-gradient(135deg, #2980b9, #8e44ad);
-    transform: scale(1.05);
-}
-
-.tab-content {
-    position: relative;
-    animation: slide 0.5s forwards;
-}
-.button_change_color{
-    margin-top: 10px; /* Oben Abstand für den Button hinzufügen */
-    padding: 5px 10px; /* Innenabstand für den Button */
-    cursor: pointer; /* Zeige den Mauszeiger als Zeiger an */
-}
-.user_high_score{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    float: left;
-}
-.global_high_scores{
-    width: 50%;
-    float: left;
-}
-.content{
-    width: 1400px;
-    margin: auto;
-}
-.table_2_itemes{
-    display: flex;
-    justify-content: center;
-}
-
-input[type="color"] {
-    vertical-align: middle; 
-  }
-
-  #color-selector {
-    margin-top: 20px; /* Füge oberen Abstand hinzu */
-  }
-
-  /* Stil für Labels und Eingabefelder */
-  #color-selector label {
-    display: inline-block; /* Stellt die Labels als Blocks nebeneinander dar */
-    width: 150px; /* Breite der Labels */
-    margin-bottom: 10px; /* Unteren Abstand zwischen den Labels hinzufügen */
-  }
-
-  
-/* Style for the welcome message */
-#welcomeMessage {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f5f5f5;
-    text-align: center;
-}
-
-/* Style for user stats section */
-#userStats {
-    float: left;
-    width: 680px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f5f5f5;
-    margin: 10px;
-}
-
-/* Style for global high scores section */
-#globalHighScores {
-    float: left;
-    width: 680px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f5f5f5;
-    margin: 10px;
-}
-
-/* Style for the country placement message */
-#countryPlacement {
-    clear: both;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f5f5f5;
-    text-align: center;
 }
 
 /* CSS-Keyboard */
@@ -442,6 +24,7 @@ input[type="color"] {
     flex-direction: column;
     margin: 0 10px;
 }
+
 .keyboard_wrapp {
     max-width: 1008px;
     width: 100%;
@@ -516,9 +99,468 @@ input[type="color"] {
 }
 
 .keys.remove {
-    animation: keys_animation 0.5s forwards ;
+    animation: keys_animation 0.5s forwards;
 }
-.popupwindow{
+
+body {
+
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bgColor);
+    color: var(--textPrimary);
+    font-size: 1.4rem;
+
+}
+
+main {
+    width: 1400px;
+    margin: auto;
+    padding: 10px;
+    height: 100vh;
+    padding-top: 50px;
+
+}
+
+h1 {
+    color: var(--textPrimary);
+
+
+}
+
+h1 svg {
+    width: 40px;
+    fill: var(--primaryColor);
+}
+
+
+:root {
+
+    --bgColor: #333;
+    --textPrimary: #fff;
+    --textSecondary: #666;
+    --primaryColor: #39cccc;
+    --base: 0.6rem;
+}
+
+
+
+
+
+.typrusheader {
+    background-color: rgb(235, 235, 235);
+    width: 100%;
+    height: 200px;
+}
+
+.headercontent {
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 1400px;
+    padding: 10px;
+    margin: auto;
+    height: 200px
+}
+
+header button {
+    width: 180px;
+    height: 50px;
+    border: 0;
+    background-color: rgb(204, 228, 228);
+    margin-left: 5px
+}
+
+header button h3 {
+    margin: auto;
+    font-weight: 700;
+
+}
+
+header button:hover {
+    background-color: rgb(58, 203, 203);
+    transition: 0.5s ease;
+}
+
+.left {
+    width: 50%;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.right {
+    width: 50%;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    padding-right: 10px;
+}
+
+.carousel-item img {
+    height: auto;
+    width: 100%;
+}
+
+.carousel-inner {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    overflow: hidden;
+    height: 55vh;
+    width: 100%;
+}
+
+
+
+#header {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 20px 6px 30px;
+}
+
+#buttons {
+
+    text-align: right;
+}
+
+#timer {
+    color: var(--primaryColor);
+}
+
+button {
+    background-color: rgba(255, 255, 255, .2);
+    border: none;
+    border-radius: 5px;
+    color: rgba(255, 255, 255, .5);
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+/*Overflow hidden ist hier wichtig damit wird nicht alles angezeigt sondern nur ein Teil*/
+div#game {
+    line-height: 35px;
+    height: 105px;
+    overflow: hidden;
+    position: relative;
+}
+
+div#game:focus {
+    outline: 0;
+}
+
+#words {
+    filter: blur(5px);
+    color: var(--textSecondary);
+}
+
+/* Hier ist wenn es nicht mehr gefokust ist, es verblasst für fancy shit und so */
+#game:focus #words {
+    filter: blur(0);
+
+}
+
+/*  Hier wird der Text ausgegeben wenn blur aktiv ist */
+#focus-error {
+    position: absolute;
+    inset: 0;
+    text-align: center;
+    padding: 35px;
+}
+
+#game:focus #focus-error {
+    display: none;
+}
+
+div.word {
+    display: inline-block;
+    font-family: 'Roboto Mono', monospace;
+    margin: 0 5px;
+
+
+}
+
+.letter.correct {
+    color: var(--primaryColor);
+}
+
+.letter.skipped {
+    text-decoration: #f55 wavy underline;
+
+}
+
+.letter.incorrect {
+    color: #f55;
+}
+
+/*Eigenschaften des Cursors*/
+#cursor {
+    display: none;
+    width: 3px;
+    height: 1.6rem;
+    background-color: var(--textPrimary);
+    position: fixed;
+    top: 185px;
+    left: 47px;
+    animation: blink 1s infinite;
+}
+
+/* Ist damit Cuurosr nicht mehr angezeigt wird wenn Blur da ist bzw. kein Fokus mehr ist*/
+#game:focus #cursor {
+    display: block;
+}
+
+.typer-deck {
+    width: 100%;
+    background-color: var(--bgColor);
+    color: var(--textPrimary);
+}
+
+.facts {
+    height: 200px;
+    width: 1400px;
+    margin: auto;
+    justify-content: center;
+    display: flex;
+    padding: 10px;
+    margin-top: 40px;
+}
+
+.box {
+    height: 150px;
+    width: 400px;
+    float: left;
+    background-color: #f5f5f5;
+    margin-left: 20px;
+    border: 1px solid rgb(194, 194, 194);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box_fact {
+    color: var(--primaryColor);
+    font-weight: 600;
+    display: flex;
+    margin-bottom: 0px;
+
+}
+
+.description {
+    margin-top: -5px;
+    color: var(--textSecondary);
+    font-size: 20px;
+}
+
+.arrow {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.arrow img {
+    margin-bottom: 10px;
+}
+
+.arrow p {
+    display: flex;
+    margin-bottom: 0px;
+    color: var(--textSecondary);
+    font-size: 23px;
+}
+
+
+
+.headercontent {
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 1400px;
+    padding: 10px;
+    margin: auto;
+    height: 200px
+}
+
+header button {
+    width: 180px;
+    height: 50px;
+    border: 0;
+    background-color: rgb(204, 228, 228);
+    margin-left: 5px
+}
+
+header button h3 {
+    margin: auto;
+    font-weight: 700;
+
+}
+
+.left {
+    width: 50%;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.right {
+    width: 50%;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    padding-right: 10px;
+}
+
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    width: 800px;
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #3498db, #9b59b6);
+    color: #fff;
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 36px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    color: #5e5d5d;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #3498db, #9b59b6);
+    border: none;
+    border-radius: 15px;
+    transition: background 0.3s, transform 0.3s;
+    color: #fff;
+    font-size: 20px;
+    padding: 15px;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #2980b9, #8e44ad);
+    transform: scale(1.05);
+}
+
+.tab-content {
+    position: relative;
+    animation: slide 0.5s forwards;
+}
+
+.button_change_color {
+    margin-top: 10px;
+    /* Oben Abstand für den Button hinzufügen */
+    padding: 5px 10px;
+    /* Innenabstand für den Button */
+    cursor: pointer;
+    /* Zeige den Mauszeiger als Zeiger an */
+}
+
+.user_high_score {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    float: left;
+}
+
+.global_high_scores {
+    width: 50%;
+    float: left;
+}
+
+.content {
+    width: 1400px;
+    margin: auto;
+}
+
+.table_2_itemes {
+    display: flex;
+    justify-content: center;
+}
+
+input[type="color"] {
+    vertical-align: middle;
+}
+
+#color-selector {
+    margin-top: 20px;
+    /* Füge oberen Abstand hinzu */
+}
+
+/* Stil für Labels und Eingabefelder */
+#color-selector label {
+    display: inline-block;
+    /* Stellt die Labels als Blocks nebeneinander dar */
+    width: 150px;
+    /* Breite der Labels */
+    margin-bottom: 10px;
+    /* Unteren Abstand zwischen den Labels hinzufügen */
+}
+
+
+/* Style for the welcome message */
+#welcomeMessage {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    text-align: center;
+}
+
+/* Style for user stats section */
+#userStats {
+    float: left;
+    width: 680px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    margin: 10px;
+}
+
+/* Style for global high scores section */
+#globalHighScores {
+    float: left;
+    width: 680px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    margin: 10px;
+}
+
+/* Style for the country placement message */
+#countryPlacement {
+    clear: both;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    text-align: center;
+}
+
+
+.popupwindow {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -534,10 +576,12 @@ input[type="color"] {
 
 
 }
-.popup_show{
+
+.popup_show {
     display: block;
 }
-#overlay{
+
+#overlay {
     display: none;
     position: fixed;
     top: 0;
@@ -547,63 +591,70 @@ input[type="color"] {
     background: rgba(0, 0, 0, 0.5);
     z-index: 99;
 }
-.finished_popup{
+
+.finished_popup {
     width: 900px;
     background-color: #333741;
     padding-left: 50px;
     padding-right: 50px;
 }
-.finished_headline{
+
+.finished_headline {
     display: flex;
     justify-content: center;
 
 }
-.finished_popup_ranking{
+
+.finished_popup_ranking {
     display: flex;
     flex-direction: row;
 }
-.part_50p
-{
+
+.part_50p {
     width: 50%;
     float: left;
     display: flex;
-    align-items: center;  
+    align-items: center;
     flex-direction: column;
 }
-.part_50p h1
-{
+
+.part_50p h1 {
     margin-bottom: 0;
 }
-.part_50p p
-{
+
+.part_50p p {
     margin-top: 5px;
 }
-.part_50p span
-{
+
+.part_50p span {
     font-size: 1.3rem;
 }
-.mb20{
+
+.mb20 {
     margin-bottom: 20px;
 }
-.fr{
+
+.fr {
     float: right;
 }
-.button_normal{
+
+.button_normal {
     padding: 10px;
     color: white;
     background-color: #1c2029;
-    font-size: 1rem ;
+    font-size: 1rem;
 }
-.button_normal:hover{
+
+.button_normal:hover {
     background-color: #16171a;
-    transition: 0.5s ease; 
+    transition: 0.5s ease;
 }
-.mt20
-{
+
+.mt20 {
     margin-top: 20px;
 }
- 
- 
+
+
 
 
 
@@ -619,6 +670,7 @@ input[type="color"] {
     0% {
         transform: translateX(100%);
     }
+
     100% {
         transform: translateX(0);
     }
@@ -645,11 +697,9 @@ input[type="color"] {
         background-color: #333;
         color: #fff;
     }
+
     100% {
         background-color: #fff;
         color: #000;
     }
 }
-
-
-
