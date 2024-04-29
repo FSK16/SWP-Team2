@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typus</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../stylesheet/style.css">
+
+    <script src="  https://unpkg.com/showdown/dist/showdown.min.js"></script>
+ 
+</head>
+
+<body>
+    <main>
+        <div class="finished_popup">
+            <div class="finished_headline">
+                <h2>Tipptest abgeschlossen!</h2>
+            </div>
+            <p>Dein Tipptest: </p>
+            <div class="result_label">
+                <span>Richtig</span>
+                <span id="result_label_false">Falsch</span>
+            </div>
+
+            <svg id="result_graph">
+
+
+            </svg>
+
+            <div class="result_label_numbers">
+                <span id="numberwords_1">0</span>
+                <span id="numberwords_2">50% der Tastenanschläge</span>
+                <span id="numberwords_3">Tastenanschläge gesamt</span>
+            </div>
+            <div class="finished_popup_ranking">
+                <div class="part_50p">
+                    <h1>WPM</h1>
+                    <p>Geschwindigkeit</p>
+                    <h1 style="margin-bottom: 40px;" id="result_wpm">124</h1>
+                    <span>... Wörter wurden pro Minute getippt.</span>
+
+
+                </div>
+                <div class="part_50p">
+                    <h1>ACC</h1>
+                    <p>Genauigkeit</p>
+                    <h1 style="margin-bottom: 40px;" id="result_acc">50%</h1>
+                    <span>... der Wörter wurden korrekt getippt.</span>
+                </div>
+            </div>
+            <button class="button_normal fr mt20" onclick="closePopup()"><span> Tippergebnis speichern und Fenster schließen</span></button>
+        </div>
+
+    </main>
+</body>
+</html>
