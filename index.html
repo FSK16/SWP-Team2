@@ -103,24 +103,22 @@
     </div>
 
     
-  <script>
+  <<script>
     const typerDeck = document.querySelector('.typer-deck');
     let scrollToTyperDeck = true;
 
     window.addEventListener('scroll', () => {
-      if (scrollToTyperDeck) {
-        if (window.scrollY >= 500) {
-          typerDeck.scrollIntoView({ behavior: 'smooth', block: 'end' });
-          scrollToTyperDeck = false;
+        if (scrollToTyperDeck && window.scrollY >= 500) {
+            typerDeck.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            scrollToTyperDeck = false;
         }
-      }
     });
 
-    typerDeck.addEventListener('scroll', () => {
-      if (typerDeck.scrollTop === 1) {
-        scrollToTyperDeck = true;
-      }
+    window.addEventListener('scroll', () => {
+        if (typerDeck.getBoundingClientRect().top <= 0) {
+            scrollToTyperDeck = true;
+        }
     });
-  </script>
+</script>
 </body>
 </html>
