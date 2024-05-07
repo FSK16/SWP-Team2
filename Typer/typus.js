@@ -73,7 +73,7 @@ buttonIds.forEach(id => {
     });
 });
 
-selectButton("wordsBtn15");
+
 
 function addClass(el,name) {
   el.className += ' '+name;
@@ -151,24 +151,39 @@ function startGameTimer() {
         startTimer(gameTime);
     }
 }
-
 let values = [];
+let averageValues = [];
 let time = 1;
+let prevTotalCharacters = 0;
+
+function calculateAverage(array) {
+    const sum = array.reduce((a, b) => a + b, 0);
+    return sum / array.length;
+}
 
 function startInt(){
     console.log("works");
-    interval = setInterval(()=>{
-        let value = getTotalCharacters() / 5 / time * 60;
-          values.push(value);
-          time++;
-          console.log(values);
-      }, 1000)
-      
-    }
+    interval = setInterval(() => {
+        const totalCharacters = getTotalCharacters();
+        let charactersThisSecond = totalCharacters - prevTotalCharacters;
+        prevTotalCharacters = totalCharacters;
 
-    function displayRes(){
-    const xValues = [...Array(15).keys()].map(x => x + 1);
-    const yValues = values.reverse();
+        charactersThisSecond = Math.max(0, charactersThisSecond);
+
+        let value = charactersThisSecond / 5 * 60;
+        values.push(value);
+
+        let averageValue = calculateAverage(values);
+        averageValues.push(averageValue);
+
+        time++;
+        console.log(values);
+    }, 1000)
+}
+
+function displayRes(){
+    const xValues = [...Array(30).keys()].map(x => x + 1);
+    const yValues = values;
     console.log(yValues);
 
     new Chart("myChart", {
@@ -181,16 +196,29 @@ function startInt(){
                 backgroundColor: "rgba(0,0,255,1.0)",
                 borderColor: "rgba(0,0,255,0.1)",
                 data: values
+            }, {
+                label: 'Average WPM',
+                fill: false,
+                lineTension: 0,
+                backgroundColor: "rgba(255,0,0,1.0)",
+                borderColor: "rgba(255,0,0,0.1)",
+                data: averageValues
             }]
         },
         options: {
-            legend: { display: false },
+            legend: { display: true },
             scales: {
-                yAxes: [{ ticks: { min: 10, max: 60 } }],
+                yAxes: [{
+                    ticks: {
+                        min: Math.floor(Math.min(...values) / 10) * 10,
+                        max: Math.ceil(Math.max(...values) / 10) * 10 + 10
+                    }
+                }],
             }
         }
-    }); 
-}  
+    });
+}
+
 // Funktion zum Beenden des Spiels
 function gameover() {
     if(words != null) {
