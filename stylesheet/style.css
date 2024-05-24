@@ -841,3 +841,11 @@ body {
   vertical-align: top;
   margin-left: 20px;
 }
+body {
+    background: linear-gradient(135deg, #3498db, #9b59b6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
