@@ -826,3 +826,18 @@ div#game {
         margin-right: 5px;
     }
 }
+
+/* Stildefinitionen für das Layout */
+body {
+  font-family: Arial, sans-serif; /* Verwende Arial als Standardschriftart */
+  text-align: center; /* Zentriere den Text im Körper */
+}
+#color-selector {
+  display: inline-block;
+  vertical-align: top;
+}
+#preset-selector {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 20px;
+}
