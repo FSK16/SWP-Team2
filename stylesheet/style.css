@@ -594,6 +594,7 @@ input[type="color"] {
 
 .finished_popup {
     width: 900px;
+    height: 840px;
     background-color: #333741;
     padding-left: 50px;
     padding-right: 50px;

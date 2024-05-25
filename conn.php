@@ -1,9 +1,9 @@
 <?php
 
 // Datenbankverbindungsparameter
-$servername = '185.51.8.82:3307';
+$servername = '185.51.8.78:3307';
 $username = 'u232847db2';
-$password = '';
+$password = 'typrus4ahwii';
 $dbname = 'u232847db2';
 // Erstellen einer Verbindung zur Datenbank
 $conn = new mysqli($servername, $username, $password, $dbname);

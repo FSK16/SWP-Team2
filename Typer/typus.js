@@ -234,7 +234,7 @@ function gameover() {
     document.getElementById('result_acc').innerHTML = accuray;
     document.getElementById('wpm_input').value = wpm;
     document.getElementById('acc_input').value = accuray;
-    openPopUp('popup_finished', 1000, 545, '#333741');
+    openPopUp('popup_finished', 1000, 840, '#333741');
     displayRes();
 }
 
