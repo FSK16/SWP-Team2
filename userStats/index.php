@@ -18,6 +18,7 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typrus</title>
     <link rel="stylesheet" href="../stylesheet/style.css">
+    <script src="../Typer/typus.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
@@ -135,7 +136,7 @@ else{
                     {   
                         $trefferanzahl +=1;
                         $UserName = $row['UserName'];
-                        $date =  formatdate($row['date']);
+                        //$date =  formatdate($row['date']);
                         echo '     
                         <div class="highscore_entry_block">
                 
@@ -155,7 +156,7 @@ else{
                             <p>'.$trefferanzahl.'</p>
                             </div>
                             <div class="highscore_entry">
-                            <p>'.$date.'</p>
+                            <p>'.$row['date'].'</p>
                             </div>
                         </div>
                             
@@ -175,7 +176,7 @@ else{
                     {   
                         $trefferanzahl +=1;
                         $UserName = $row['UserName'];
-                        $date = formatdate($row['date']);
+                        //$date = formatdate($row['date']);
                         echo '     
                         <div class="highscore_entry_block">
                 
@@ -195,7 +196,7 @@ else{
                             <p>'.$trefferanzahl.'</p>
                             </div>
                             <div class="highscore_entry">
-                            <p>'.$date.'</p>
+                            <p>'.$row['date'].'</p>
                             </div>
                         </div>
                             
@@ -206,12 +207,28 @@ else{
                 </div>
             </div>
         </div>
-        <!-- <ol>
-            <li>Player A - Score: 1200</li>
-            <li>Player B - Score: 1100</li>
-            <li>Player C - Score: 1050</li>
-            highscores je naachdem wie viele man anzeigen will erweitern und aus der daten bank entnehmen 
-        </ol>-->
+        <div class="container_100p" id="userStats_profile_pic">
+            <div class="container_content">
+                <div class="content_60p">
+                    <h3>Dein Profilbild</h3>
+                    <p>Füge ein Profilbild hinzu, um deinem Profil
+                         ideales Aussehen zu schaffen. 
+                         Klicke dazu ganz einfach auf Profilbild
+                          hinzuügen!
+                        Das Profilbild kann auch im Nachhinein geändert werden</p>
+                </div>
+                <div class="content_40p" id="profile_pic_view">
+                    <div class="userStats_profilePic_Picture">
+                        <img src="https://railwayfans.b-cdn.net/image_online/IMG-6652f20f8545f9.75230249.jpg" alt="Profilbild von <?php echo $UserName?>">
+                    </div>
+                    <div class="userStats_profilePic_button_change">
+                        <button onclick="openPopUp('new_proile_pic_popup',  500, 250, '#ffffff')"><b>Neues Profilbild wählen</b></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -230,12 +247,80 @@ else{
         </script>
     </div>
 
+
 </>
 
 
  
 
 <script>
+
+    
+function newpicupload(event) {
+    console.log("File erhalten");
+
+    var uploadPictureDiv = document.querySelector('.uploadpicture');
+    var uploadText = document.querySelector('.uploadtext');
+    var uploadButton = document.getElementById('fileupload_button');
+    var uploadBox = document.querySelector('.uploadbox');
+    var confirmed = document.querySelector('.confirmed');
+    var file = event.target.files[0]; // Datei vom Ereignisparameter holen
+
+    if (file) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var img = document.createElement('img');
+            img.src = e.target.result;
+
+            // Überprüfen Sie die Dateiendung
+            if (file.type === 'image/jpeg') {
+                var image = new Image();
+                image.src = e.target.result;
+                image.onload = function () {
+                    if (image.width <= 2000) {
+                        img.style.opacity = '0'; // Bild am Anfang ausblenden
+                        uploadPictureDiv.appendChild(img);
+
+                        uploadText.style.transition = 'opacity 0.5s';
+                        uploadButton.style.transition = 'opacity 0.5s';
+                        uploadText.style.opacity = '0';
+                        uploadButton.style.opacity = '0';
+
+                        // Ändern Sie die Hintergrundfarbe der uploadbox
+                        uploadBox.style.transition = 'background-color 0.5s';
+                        uploadBox.style.backgroundColor = 'transparent';
+                        uploadText.style.display = 'none';
+
+                        // Verzögern Sie das Einblenden des Bildes um 0,5 Sekunden
+                        setTimeout(function () {
+                            img.style.opacity = '1';
+                            img.classList.add('uploadpicture_image');
+                        }, 500);
+                    } else {
+                        alert("Bitte wähle ein Bild mit einer Breite, die kleiner als 2000px ist.");
+                    }
+                };
+            } else {
+                alert("Bitte wähle ein JPEG-Bild.");
+            }
+        };
+        reader.readAsDataURL(file);
+    } else {
+        uploadPictureDiv.innerHTML = '';
+
+        // Zeigen Sie den Text und den Upload-Button mit einem Übergangseffekt wieder an
+        uploadText.style.transition = 'opacity 0.5s';
+        uploadButton.style.transition = 'opacity 0.5s';
+        uploadText.style.opacity = '1';
+        uploadButton.style.opacity = '1';
+
+        // Setzen Sie die Hintergrundfarbe der uploadbox zurück
+        uploadBox.style.transition = 'background-color 0.5s';
+        uploadBox.style.backgroundColor = '#dfe3de';
+    }
+}
+
         // JavaScript code for creating the line chart
         var chartData = {
             datasets: [{
@@ -299,7 +384,31 @@ else{
             }
 
         }
+
+
+
     </script>
 
+
+<div id="new_proile_pic_popup" class="popupwindow">
+    <div class="container_content">
+        <form action="new_profile_pic.php" method="POST">
+
+        <h4>Neues Profilbild wählen</h4>
+        <div class="uploadbox">
+            <p class="uploadtext">Bitte den Button drücken um ein Bild auszuwählen</p>
+            <div class="uploadpicture">
+                <input type="file" id="fileInput" name="my_image" style="display: none;" onchange="newpicupload(event)" required>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('fileInput').click()" id="fileupload_button">Bild auswählen</button>
+        </div>
+        <button  type="submit" name="submit" class="profile_pic_new_submit">Bild auswählen</button>
+        </form>
+
+    </div>
+
+
+</div>
+<div id="overlay"></div>
 </body>
 </html>
