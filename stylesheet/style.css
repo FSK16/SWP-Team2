@@ -136,6 +136,13 @@ h1 svg {
     width: 40px;
     fill: var(--primaryColor);
 }
+button{
+    transition: all 0.1s ease;
+}
+button:hover{
+    filter: brightness(90%);
+}
+
 
 
 :root {
@@ -171,7 +178,8 @@ header button {
     width: 180px;
     height: 50px;
     border: 0;
-    background-color: rgb(204, 228, 228);
+    background-color: var(--primaryColor);
+    color: white;
     margin-left: 5px
 }
 
@@ -181,10 +189,6 @@ header button h3 {
 
 }
 
-header button:hover {
-    background-color: rgb(58, 203, 203);
-    transition: 0.5s ease;
-}
 
 .left {
     width: 50%;
@@ -389,14 +393,6 @@ div.word {
     padding: 10px;
     margin: auto;
     height: 200px
-}
-
-header button {
-    width: 180px;
-    height: 50px;
-    border: 0;
-    background-color: rgb(204, 228, 228);
-    margin-left: 5px
 }
 
 header button h3 {
@@ -652,10 +648,6 @@ input[type="color"] {
     font-size: 1rem;
 }
 
-.button_normal:hover {
-    background-color: #16171a;
-    transition: 0.5s ease;
-}
 
 .mt20 {
     margin-top: 20px;
@@ -680,9 +672,7 @@ input[type="color"] {
 
 
 }
-.userStats_highscoretable_header button:hover{
-    filter: brightness(90%);
-}
+
 .highscore_entry_block{
     height: 45px;
     background-color: #eeeded;
@@ -753,9 +743,6 @@ input[type="color"] {
     color: white;
     transition: all 0.1s ease;
 }
-.userStats_profilePic_button_change button:hover{
-    filter: brightness(90%);
-}
 
 .uploadbox{
     width: 100%;
@@ -763,10 +750,7 @@ input[type="color"] {
     border-radius: 5px;
     background-color: #dfe3de;
 }
-.uploadbox:hover{
-    background-color: #dbd9d5;
-    transition: 0.4s ease;
-}
+
 .uploadtext{
     margin-top: 10px;
     padding: 10px;
@@ -782,7 +766,8 @@ input[type="color"] {
     width: 150px;
     height: 150px;
     object-fit: cover;
-    margin: auto
+    display: flex;
+    border-radius:75px;
 }
 .profile_pic_new_submit{
     background-color: var(--primaryColor);
@@ -802,6 +787,16 @@ input[type="color"] {
 .profile_pic_new_submit{
     filter: brightness(90%);
 
+}
+.bgred{
+    background-color: rgb(219, 20, 20)!important;
+}
+#profile_pic_new_delete
+{
+    margin-right: 5px;
+}
+.link_nodec{
+    text-decoration: none;
 }
 
 

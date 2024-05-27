@@ -31,11 +31,13 @@ else{
     <header class="typrusheader">
         <div class="headercontent">
             <div class="left">
-            <img src ="../pics/logo.jpg">
+                <a href="../">
+                    <img src ="../pics/logo.jpg">
+                </a>
             </div>
 
             <div class="right">
-            <a href="../index.html"><button ><h3>LogOut</h3></button></a>
+            <a href="../index.html"><button><h3>LogOut</h3></button></a>
             <a href="../Typer/index.html"><button><h3>Go Typing</h3></button></a>
             </div>
         </div>
@@ -43,12 +45,13 @@ else{
     </header>
     <div class="content">
         <?php
-        $sql = "SELECT UserName FROM nutzer WHERE int_id = $UserID";
+        $sql = "SELECT UserName, profile_pic FROM nutzer WHERE int_id = $UserID";
         $result = $conn->query($sql);
         if($result->num_rows == 1)
         {
             while($row = $result->fetch_assoc())
             {
+                $profilepic = $row['profile_pic'];
                 $UserName = $row['UserName'];
                 echo '<h2 id="welcomeMessage">Welcome user '.$row['UserName'].'</h2>';
             }
@@ -136,7 +139,8 @@ else{
                     {   
                         $trefferanzahl +=1;
                         $UserName = $row['UserName'];
-                        //$date =  formatdate($row['date']);
+
+                        $date =  formatdate($row['date']);
                         echo '     
                         <div class="highscore_entry_block">
                 
@@ -156,7 +160,7 @@ else{
                             <p>'.$trefferanzahl.'</p>
                             </div>
                             <div class="highscore_entry">
-                            <p>'.$row['date'].'</p>
+                            <p>'.$date.'</p>
                             </div>
                         </div>
                             
@@ -176,7 +180,7 @@ else{
                     {   
                         $trefferanzahl +=1;
                         $UserName = $row['UserName'];
-                        //$date = formatdate($row['date']);
+                        $date = formatdate($row['date']);
                         echo '     
                         <div class="highscore_entry_block">
                 
@@ -196,7 +200,7 @@ else{
                             <p>'.$trefferanzahl.'</p>
                             </div>
                             <div class="highscore_entry">
-                            <p>'.$row['date'].'</p>
+                            <p>'.$date.'</p>
                             </div>
                         </div>
                             
@@ -215,11 +219,19 @@ else{
                          ideales Aussehen zu schaffen. 
                          Klicke dazu ganz einfach auf Profilbild
                           hinzuügen!
-                        Das Profilbild kann auch im Nachhinein geändert werden</p>
+                        Das Profilbild kann auch im Nachhinein geändert werden.</p>
                 </div>
                 <div class="content_40p" id="profile_pic_view">
                     <div class="userStats_profilePic_Picture">
-                        <img src="https://railwayfans.b-cdn.net/image_online/IMG-6652f20f8545f9.75230249.jpg" alt="Profilbild von <?php echo $UserName?>">
+                        <?php
+                        if(isset($profilepic))
+                        {
+                            echo '<img src="../user/profile_pictures/'.$profilepic.'" alt="Profilbild von '.$UserName.'">';
+                        }
+                        else{
+                            echo '<img src="../pics/user-avatar.png" alt="Profilbild von '.$UserName.'">';
+                        }
+                        ?>
                     </div>
                     <div class="userStats_profilePic_button_change">
                         <button onclick="openPopUp('new_proile_pic_popup',  500, 250, '#ffffff')"><b>Neues Profilbild wählen</b></button>
@@ -272,6 +284,7 @@ function newpicupload(event) {
         reader.onload = function (e) {
             var img = document.createElement('img');
             img.src = e.target.result;
+            console.log(img.src);
 
             // Überprüfen Sie die Dateiendung
             if (file.type === 'image/jpeg') {
@@ -392,17 +405,19 @@ function newpicupload(event) {
 
 <div id="new_proile_pic_popup" class="popupwindow">
     <div class="container_content">
-        <form action="new_profile_pic.php" method="POST">
+        <form action="new_profile_pic.php" method="POST" enctype="multipart/form-data">
 
         <h4>Neues Profilbild wählen</h4>
         <div class="uploadbox">
             <p class="uploadtext">Bitte den Button drücken um ein Bild auszuwählen</p>
             <div class="uploadpicture">
-                <input type="file" id="fileInput" name="my_image" style="display: none;" onchange="newpicupload(event)" required>
+                <input type="file" id="fileInput" name="my_image" style="display: none;" onchange="newpicupload(event)">
             </div>
             <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('fileInput').click()" id="fileupload_button">Bild auswählen</button>
         </div>
-        <button  type="submit" name="submit" class="profile_pic_new_submit">Bild auswählen</button>
+        <button type="submit" name="submit" class="profile_pic_new_submit">Bild auswählen</button>
+        <button type="submit" id="profile_pic_new_delete" name="delete" class="profile_pic_new_submit bgred">Profilbild löschen</button>
+
         </form>
 
     </div>

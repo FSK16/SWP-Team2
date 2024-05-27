@@ -44,8 +44,6 @@ h1 svg {
 }
 
 button:hover {
-    letter-spacing: 0.25em;
-    color: rgba(255, 255, 255, .5);
     box-shadow: 0 0 20px var(--primaryColor);
 }
 
