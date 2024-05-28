@@ -75,7 +75,13 @@
   
 
   <!-- Abschnitt für die Funktionalität -->
-  <script>
+  <script defer>
+    if("bgcolor" in sessionStorage && "txtcolor" in sessionStorage){
+
+      document.documentElement.style.setProperty("--bgColor", sessionStorage.getItem("bgcolor"));
+      document.documentElement.style.setProperty("--textPrimary", sessionStorage.getItem("txtcolor"));
+
+    }
     // Funktion, um die Farben zu ändern
     function changeColors() {
       var bgColor = document.getElementById("bg-color").value; // Hintergrundfarbe auslesen
@@ -85,6 +91,9 @@
       if(bgColor !== textColor) {
         document.body.style.backgroundColor = bgColor; // Hintergrundfarbe ändern
         document.body.style.color = textColor; // Textfarbe ändern
+        sessionStorage.setItem("bgcolor", bgColor);
+        sessionStorage.setItem("txtcolor", textColor);
+  
       } else {
         alert("Die Textfarbe darf nicht gleich der Hintergrundfarbe sein!"); // Benutzer benachrichtigen
       }
@@ -192,6 +201,8 @@ function applyPreset() {
     default:
       bgColor = "#FFFFFF"; // Standard Hintergrund (weiß)
       textColor = "#000000"; // Standard Textfarbe (schwarz)
+      
+    
   }
 
   // Setze die ausgewählten Farben
@@ -202,7 +213,7 @@ function applyPreset() {
   document.body.style.backgroundColor = bgColor;
   document.body.style.color = textColor;
 
-
+  changeColors();
 
 }
   </script>
