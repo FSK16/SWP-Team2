@@ -1,5 +1,6 @@
 <?php
 require_once 'conn.php';
+include 'template/functions.php';
 session_start();
 
 if (isset($_POST['submit']))
@@ -32,53 +33,40 @@ if (isset($_POST['submit']))
         exit();
     } 
 
-    $sql = "INSERT INTO nutzer (UserName, EMail, verified, password, country_id) VALUES ('$username','$email',0,'$password_hashed',1)"; //Einfügen des neuen Nutzers in die DB
-    $result = $conn->query($sql);
-    $UserID = $conn->$inserted_id;
+    $stmt = $conn->prepare("INSERT INTO nutzer (UserName, EMail, verified, password, country_id) VALUES (?, ?, 0, ?, 1)");
+    $stmt->bind_param("sss", $username, $email, $password_hashed);
+    $stmt->execute();
+    $UserID = $stmt->insert_id;
+    $stmt->close();
 
-    /*if($result)
-    {
-        
-        $mail = new PHPMailer(true);
-        $name = str_replace(' ', '_', $name); 
+    $mail = 'Willkommen bei Typus! Es freut uns, dass du dich gerade bei uns registriert hast. Bitte verifiziere dich nun mit einem Klick auf diesem Knopf:
+        </p>
+        <div style="margin: auto; width: 200px;"> 
+            <a href="http://localhost/typrus/user/verification.php?user_id='.$UserID.'"><button style="margin: auto; cursor: pointer; width: 200px; margin-bottom: 5px; height: 50px; background-color: rgb(58, 203, 203); border: none;"><p style="font-size: 18px; margin-bottom: 8px; font-weight: bold;" >Verifizieren</p></button></a>
+        </div>';
 
-
-        try {
-            //Server settings
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-
-            $mail->isSMTP();
-            $mail->SMTPAuth = true;
-            
-            $mail->Host = "smtp.easyname.com";
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;
-            
-            $mail->Username = "232847mail2";
-            $mail->Password = 'confirm';                                  
-            //Recipients
-            $mail->setFrom('confirmation@typrus.at', 'Confirmation');
-            $mail->addAddress($email, $name);     
-            $mail->addReplyTo('info@typrus.at', 'Information');
-            $mail->addBCC('felix0404@typrus.at');
-
-            //Content
-            $mail->isHTML(true);                                
-            $mail->Subject = 'Confirmation Email for '.$name;
-            $mail->Body    = ';
-            $mail->AltBody = 'Please press follwing link to activate your account: ';
-
-            $mail->send();
-            echo 'Message has been sent';
-
-        }
-    }*/   
+    sendmailtouser($email, $username, $mail, 0, 'Typus Verifizierung', 'Dein Verifizierungsmail');
 
     $phpCode =
-    '$UserID = ';
+    '<?php
+    $UserID = '.$UserID.';
+    require_once \'../../template/user_page.php\';
+    ?>
+    ';
 
-    header("Location: register/success"); //Weiterleitung zur Startseite
+    $filepath = 'user/'.$UserID.'/'.$username;
+    $filename = 'index.php';
+
+    createfile($filepath, $filename, $phpCode);
+
+
+    echo '<script type="text/javascript">
+    window.location.href = "register/success";
+    </script>';
     exit(); 
+}
+else{
+    echo 'geht nicht';
 }
 
 ?>

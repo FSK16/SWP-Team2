@@ -17,9 +17,11 @@ span {
 
 /* CSS-Keyboard */
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 5%);
+    position: absolute;
     height: 100vh;
     flex-direction: column;
     margin: 0 10px;
@@ -27,8 +29,11 @@ span {
 
 .keyboard_wrapp {
     max-width: 1008px;
+    border: 2px solid var(--primaryColor);
+    border-radius: 1.87%;
+    box-shadow: 10px 0px 134px 48px rgba(0,0,0,0.75);
     width: 100%;
-    background-color: #e7e7e7;
+    background-color:var(--bgColor);
     overflow: hidden;
     position: relative;
     overflow: hidden;
@@ -40,13 +45,14 @@ span {
 }
 
 .keys {
+    border-radius: 7.187%;
     width: 60px;
     height: 60px;
-    background-color: #fff;
+    background-color:var(--primaryColor);
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 4px;
+    margin: 6px;
     transition: .2s;
     z-index: 5;
 }
@@ -130,6 +136,13 @@ h1 svg {
     width: 40px;
     fill: var(--primaryColor);
 }
+button{
+    transition: all 0.1s ease;
+}
+button:hover{
+    filter: brightness(90%);
+}
+
 
 
 :root {
@@ -165,7 +178,8 @@ header button {
     width: 180px;
     height: 50px;
     border: 0;
-    background-color: rgb(204, 228, 228);
+    background-color: var(--primaryColor);
+    color: white;
     margin-left: 5px
 }
 
@@ -175,10 +189,6 @@ header button h3 {
 
 }
 
-header button:hover {
-    background-color: rgb(58, 203, 203);
-    transition: 0.5s ease;
-}
 
 .left {
     width: 50%;
@@ -385,14 +395,6 @@ div.word {
     height: 200px
 }
 
-header button {
-    width: 180px;
-    height: 50px;
-    border: 0;
-    background-color: rgb(204, 228, 228);
-    margin-left: 5px
-}
-
 header button h3 {
     margin: auto;
     font-weight: 700;
@@ -594,6 +596,7 @@ input[type="color"] {
 
 .finished_popup {
     width: 900px;
+    height: 840px;
     background-color: #333741;
     padding-left: 50px;
     padding-right: 50px;
@@ -645,14 +648,161 @@ input[type="color"] {
     font-size: 1rem;
 }
 
-.button_normal:hover {
-    background-color: #16171a;
-    transition: 0.5s ease;
-}
 
 .mt20 {
     margin-top: 20px;
 }
+.userStats_highscoretable{
+    width: 100%;
+    height: 380px;
+}
+.userStats_highscoretable_header{
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+}
+.userStats_highscoretable_header button{
+    background-color: var(--primaryColor);
+    color: white;
+    margin-right: 2px;
+    transition: all 0.1s ease;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+
+}
+.userStats_highscoretable_content{
+    overflow-y: auto;
+
+}
+
+.highscore_entry_block{
+    height: 45px;
+    background-color: #eeeded;
+    border-bottom: 0.5px solid #ccc;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.highscore_entry{
+    width: 16.66666666%;
+}
+.highscore_entry p{
+    font-size: 1.1rem;
+    margin-bottom: 0;
+    margin: auto;
+    text-align: center;
+}
+#highsorce_entry_title{
+    font-weight: 800;
+    height: 36px;
+}
+.container_100p{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+#userStats_profile_pic{
+    height: 200px;
+}
+.container_content{
+    padding: 10px;
+}
+.content_60p{
+    width: 60%;
+    float: left;
+    padding: 5px;
+}
+.content_40p{
+    width: 40%;
+    float: left;
+}
+#profile_pic_view{
+    display: flex;
+    height: 170px;
+    align-items: center;
+    flex-direction: column;
+}
+.userStats_profilePic_Picture{
+    width: 120px;
+    height: 120px;
+    margin: auto;
+}
+#userStats_profile_pic img{
+    height: 120px;
+    width: 120px;
+    border-radius: 60px;
+    object-fit: cover;
+    margin: auto;
+}
+.userStats_profilePic_button_change{
+    width: 250px;
+    height: 30px;
+}
+.userStats_profilePic_button_change button{
+    width: 100%;
+    height: 35px;
+    background-color: var(--primaryColor);
+    color: white;
+    transition: all 0.1s ease;
+}
+
+.uploadbox{
+    width: 100%;
+    height: 150px;
+    border-radius: 5px;
+    background-color: #dfe3de;
+}
+
+.uploadtext{
+    margin-top: 10px;
+    padding: 10px;
+}
+.uploadbutton{
+    margin-top: auto;
+    width: 150px;
+    margin-top: 50px;
+    margin-left: 180px;
+    color: #dbd9d5;
+}
+.uploadbox img{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    display: flex;
+    border-radius:75px;
+}
+.profile_pic_new_submit{
+    background-color: var(--primaryColor);
+    width: 200px;
+    color: white;
+    font-weight: 900;
+    margin-top: 8px;
+    float: right;
+    border-radius: 5px;
+    transition: all 0.1s ease;
+}
+.uploadbox button{
+    margin-left: 180px;
+    margin-top: 50px;
+    
+}
+.profile_pic_new_submit{
+    filter: brightness(90%);
+
+}
+.bgred{
+    background-color: rgb(219, 20, 20)!important;
+}
+#profile_pic_new_delete
+{
+    margin-right: 5px;
+}
+.link_nodec{
+    text-decoration: none;
+}
+
+
 
 
 

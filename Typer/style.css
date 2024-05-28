@@ -1,40 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap');
 
 :root {
-
     --bgColor: #333;
     --textPrimary: #fff;
     --textSecondary: #666;
     --primaryColor: #39cccc;
 }
 
-
-.material-symbols-outlined{
-
+.material-symbols-outlined {
     justify-content: center;
     align-items: center;
     display: flex;
 }
 
 body {
-
     font-family: 'Roboto', sans-serif;
     background-color: var(--bgColor);
     color: var(--textPrimary);
     font-size: 1.4rem;
-
 }
 
 main {
     width: 1400px;
     margin: 35px auto;
-
 }
 
 h1 {
     color: var(--textPrimary);
-   
-
 }
 
 h1 svg {
@@ -42,10 +34,7 @@ h1 svg {
     fill: var(--primaryColor);
 }
 
-
-
 #buttons {
-
     text-align: right;
     margin-bottom: 20px;
 }
@@ -53,23 +42,21 @@ h1 svg {
 #timer {
     color: var(--primaryColor);
 }
+
 button:hover {
-    letter-spacing: 0.25em;
-    color: rgba(255, 255, 255, .5);
     box-shadow: 0 0 20px var(--primaryColor);
 }
 
-button::before{
-   position: absolute;
-   inset: 2px;
-
-
+button::before {
+    position: absolute;
+    inset: 2px;
 }
+
 button span {
     position: relative;
     z-index: 1;
-}       
-/*Overflow hidden ist hier wichtig damit wird nicht alles angezeigt sondern nur ein Teil*/
+}
+
 div#game {
     line-height: 35px;
     height: 150px;
@@ -78,23 +65,16 @@ div#game {
     position: relative;
 }
 
-
-
 #words {
     filter: blur(5px);
     color: var(--textSecondary);
 }
 
-
 div.word {
     display: inline-block;
     font-family: 'Roboto Mono', monospace;
     margin: 0 5px;
-   
-    
-
 }
-
 
 .letter.correct {
     color: var(--primaryColor);
@@ -102,13 +82,11 @@ div.word {
 
 .letter.skipped {
     text-decoration: #f55 wavy underline;
-
 }
 
 .letter.incorrect {
     color: #f55;
 }
-/* Alles für focus error */
 
 /* When game is in focus, words are clear */
 #game:focus #words {
@@ -176,18 +154,16 @@ div.word {
     }
 }
 
-
-
-
 #game.start {
     filter: none;
-    
 }
-.typer_head_lang_time{
+
+.typer_head_lang_time {
     display: flex;
     justify-content: center;
 }
-.typer_head_lang_time button{
+
+.typer_head_lang_time button {
     background-color: rgba(255, 255, 255, .2);
     border: none;
     border-radius: 5px;
@@ -196,24 +172,26 @@ div.word {
     cursor: pointer;
     margin-left: 10px;
 }
-.typer_head_lang_time select{
+
+.typer_head_lang_time select {
     background-color: rgba(255, 255, 255, .2);
     color: rgba(255, 255, 255, .5);
 }
+
 #languageSelect option {
-    background-color: #4d4d4d; /* Hintergrundfarbe der Optionen */
-    color: white; /* Textfarbe der Optionen */
+    background-color: #4d4d4d;
+    /* Hintergrundfarbe der Optionen */
+    color: white;
+    /* Textfarbe der Optionen */
     width: 100%;
 }
-#languageSelect{
+
+#languageSelect {
     width: 150px;
 }
 
-
-
-@media (max-width: 1500px)
-{
-    main{
+@media (max-width: 1500px) {
+    main {
         width: 100%;
         margin-left: 5px;
         margin-right: 5px;
