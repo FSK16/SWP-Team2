@@ -1,6 +1,1 @@
-
-
-GET http://localhost:3000/de_at/100
-
-
-
+GET http://localhost:3000/random-word?language=english&number=150
