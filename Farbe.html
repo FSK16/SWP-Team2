@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Zeichensatz auf UTF-8 setzen -->
     <meta charset="UTF-8">
+    <!-- Meta-Tag zur Anpassung der Anzeige und Steuerung des Layouts auf verschiedenen Geräten -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Einbindung einer externen benutzerdefinierten CSS-Datei -->
     <link rel="stylesheet" href="stylesheet/style.css">
+    <!-- Titel des Dokuments -->
     <title>Farbauswahl</title>
+    <!-- Inline-CSS (auskommentiert) für das Layout -->
     <!--<style>
-      /* Stildefinitionen für das Layout */
       body {
-        font-family: Arial, sans-serif; /* Verwende Arial als Standardschriftart */
-        text-align: center; /* Zentriere den Text im Körper */
+        font-family: Arial, sans-serif;
+        text-align: center;
       }
       #color-selector {
         display: inline-block;
@@ -43,179 +47,175 @@
   </div>
 
   <!-- Dropdown-Menü für vorgefertigte Farbkombinationen -->
-<div id="preset-selector">
-  <label for="preset-colors">Vorgefertigte Farbkombination:</label>
-  <select id="preset-colors" onchange="applyPreset()">
-    <option value="default">Standard⚪⚫</option>
-    <option value="sewing-pin">Sewing Pin🟣⚪</option>
-    <option value="dino">Dino⚪🟢</option>
-    <option value="solarized-light">Solarized Light🟡🟢</option>
-    <option value="darling">Darling🔴⚪</option>
-    <option value="taro">Taro🟣⚫</option>
-    <option value="beach">Beach🟡🔵</option>
-    <option value="frozen-llama">Frozen Llama🔵🟣</option>
-    <option value="strawberry">Strawberry🔴⚪</option>
-    <option value="menthol">Menthol🟢⚪</option>
-    <option value="sweden">Sweden🔵🟡</option>
-    <option value="grand-prix">Grand Prix⚫🟡</option>
-    <option value="hedge">Hedge🟢🟡</option>
-    <option value="matcha-moccha">Matcha Moccha🟤🟢</option>
-    <option value="cherry-blossom">Cherry Blossom⚫🟣</option>
-    <option value="mint">Mint🔵🟢</option>
-    <option value="superuser">Superuser⚫🟢</option>
-    <option value="nightrunner">Nightrunner⚫🟡</option>
-    <option value="grape">Grape🟣🟠</option>
-    <option value="joker">Joker🟣🟢</option>
-    <option value="matrix">Matrix⚫🟢</option>
-    <option value="husqy">Husqy⚫🟣</option>
-    <option value="fire">Fire🔴🔴</option>
-    <option value="stealth">Stealth⚫⚫</option>
-  </select>
+  <div id="preset-selector">
+    <label for="preset-colors">Vorgefertigte Farbkombination:</label>
+    <select id="preset-colors" onchange="applyPreset()">
+      <option value="default">Standard⚪⚫</option>
+      <option value="sewing-pin">Sewing Pin🟣⚪</option>
+      <option value="dino">Dino⚪🟢</option>
+      <option value="solarized-light">Solarized Light🟡🟢</option>
+      <option value="darling">Darling🔴⚪</option>
+      <option value="taro">Taro🟣⚫</option>
+      <option value="beach">Beach🟡🔵</option>
+      <option value="frozen-llama">Frozen Llama🔵🟣</option>
+      <option value="strawberry">Strawberry🔴⚪</option>
+      <option value="menthol">Menthol🟢⚪</option>
+      <option value="sweden">Sweden🔵🟡</option>
+      <option value="grand-prix">Grand Prix⚫🟡</option>
+      <option value="hedge">Hedge🟢🟡</option>
+      <option value="matcha-moccha">Matcha Moccha🟤🟢</option>
+      <option value="cherry-blossom">Cherry Blossom⚫🟣</option>
+      <option value="mint">Mint🔵🟢</option>
+      <option value="superuser">Superuser⚫🟢</option>
+      <option value="nightrunner">Nightrunner⚫🟡</option>
+      <option value="grape">Grape🟣🟠</option>
+      <option value="joker">Joker🟣🟢</option>
+      <option value="matrix">Matrix⚫🟢</option>
+      <option value="husqy">Husqy⚫🟣</option>
+      <option value="fire">Fire🔴🔴</option>
+      <option value="stealth">Stealth⚫⚫</option>
+    </select>
   </div>
-  
 
   <!-- Abschnitt für die Funktionalität -->
   <script defer>
-    if("bgcolor" in sessionStorage && "txtcolor" in sessionStorage){
-
+    // Überprüfen, ob Farben in der Sitzungsspeicherung vorhanden sind, und diese anwenden
+    if ("bgcolor" in sessionStorage && "txtcolor" in sessionStorage) {
       document.documentElement.style.setProperty("--bgColor", sessionStorage.getItem("bgcolor"));
       document.documentElement.style.setProperty("--textPrimary", sessionStorage.getItem("txtcolor"));
-
     }
+
     // Funktion, um die Farben zu ändern
     function changeColors() {
       var bgColor = document.getElementById("bg-color").value; // Hintergrundfarbe auslesen
       var textColor = document.getElementById("text-color").value; // Textfarbe auslesen
       
       // Prüfe, ob die Farben gleich sind
-      if(bgColor !== textColor) {
+      if (bgColor !== textColor) {
         document.body.style.backgroundColor = bgColor; // Hintergrundfarbe ändern
         document.body.style.color = textColor; // Textfarbe ändern
+        // Farben in der Sitzungsspeicherung speichern
         sessionStorage.setItem("bgcolor", bgColor);
         sessionStorage.setItem("txtcolor", textColor);
-  
       } else {
         alert("Die Textfarbe darf nicht gleich der Hintergrundfarbe sein!"); // Benutzer benachrichtigen
       }
     }
 
     // Funktion, um vorgefertigte Farbkombinationen anzuwenden
-function applyPreset() {
-  var presetColors = document.getElementById("preset-colors").value;
-  var bgColor, textColor;
+    function applyPreset() {
+      var presetColors = document.getElementById("preset-colors").value;
+      var bgColor, textColor;
 
-  // Setze die Farben entsprechend des ausgewählten Vorschlags
-  switch(presetColors) {
-    case "sewing-pin":
-      bgColor = "#8A2BE2"; 
-      textColor = "#FFFFFF"; 
-      break;
-    case "dino":
-      bgColor = "#FFFFFF"; 
-      textColor = "#00ff7f"; 
-      break;
-    case "solarized-light":
-      bgColor = "#fdf6e3"; 
-      textColor =  "#698b22"; 
-      break;
-    case "darling":
-      bgColor = "#ff82ab"; 
-      textColor =  "#FFFFFF"; 
-      break;
-    case "taro":
-      bgColor = "#836fff"; 
-      textColor =  "#1f1f1f"; 
-      break;
-      case "beach":
-      bgColor = "#ffec8b"; 
-      textColor =  "#66cdaa"; 
-      break;
-      case "frozen-llama":
-      bgColor = "#87cefa"; 
-      textColor =  "#8a2be2"; 
-      break;
-      case "strawberry":
-      bgColor = "#ff6a6a"; 
-      textColor =  "#FFFFFF"; 
-      break;
-      case "menthol":
-      bgColor = "#00c18c"; 
-      textColor =  "#FFFFFF"; 
-      break;
-      case "sweden":
-      bgColor = "#0058a3"; 
-      textColor =  "#ffcc02"; 
-      break;
-      case "grand-prix":
-      bgColor = "#36475c"; 
-      textColor =  "#c0d036"; 
-      break;
-      case "hedge":
-      bgColor = "#415e31"; 
-      textColor =  "#f2efbb"; 
-      break;
-      case "matcha-moccha":
-      bgColor = "#523525"; 
-      textColor =  "#7ec160"; 
-      break;
-      case "cherry-blossom":
-      bgColor = "#323437"; 
-      textColor =  "#d65ccc"; 
-      break;
-      case "mint":
-      bgColor = "#05385b"; 
-      textColor =  "#5cdb95"; 
-      break;
-      case "superuser":
-      bgColor = "#262a33"; 
-      textColor =  "#43ffaf"; 
-      break;
-      case "nightrunner":
-      bgColor = "#212121"; 
-      textColor =  "#feff04"; 
-      break;
-      case "grape":
-      bgColor = "#2c003e"; 
-      textColor =  "#ff8f00"; 
-      break;
-      case "joker":
-      bgColor = "#1a0e25"; 
-      textColor =  "#99de1e"; 
-      break;
-      case "matrix":
-      bgColor = "#000000"; 
-      textColor =  "#15ff00"; 
-      break;
-      case "husqy":
-      bgColor = "#000000"; 
-      textColor =  "#c58aff"; 
-      break;
-      case "fire":
-      bgColor = "#0f0000"; 
-      textColor =  "#b31313"; 
-      break;
-      case "stealth":
-      bgColor = "#010203"; 
-      textColor =  "#383e42"; 
-      break;
-    default:
-      bgColor = "#FFFFFF"; // Standard Hintergrund (weiß)
-      textColor = "#000000"; // Standard Textfarbe (schwarz)
-      
-    
-  }
+      // Setze die Farben entsprechend des ausgewählten Vorschlags
+      switch (presetColors) {
+        case "sewing-pin":
+          bgColor = "#8A2BE2";
+          textColor = "#FFFFFF";
+          break;
+        case "dino":
+          bgColor = "#FFFFFF";
+          textColor = "#00ff7f";
+          break;
+        case "solarized-light":
+          bgColor = "#fdf6e3";
+          textColor = "#698b22";
+          break;
+        case "darling":
+          bgColor = "#ff82ab";
+          textColor = "#FFFFFF";
+          break;
+        case "taro":
+          bgColor = "#836fff";
+          textColor = "#1f1f1f";
+          break;
+        case "beach":
+          bgColor = "#ffec8b";
+          textColor = "#66cdaa";
+          break;
+        case "frozen-llama":
+          bgColor = "#87cefa";
+          textColor = "#8a2be2";
+          break;
+        case "strawberry":
+          bgColor = "#ff6a6a";
+          textColor = "#FFFFFF";
+          break;
+        case "menthol":
+          bgColor = "#00c18c";
+          textColor = "#FFFFFF";
+          break;
+        case "sweden":
+          bgColor = "#0058a3";
+          textColor = "#ffcc02";
+          break;
+        case "grand-prix":
+          bgColor = "#36475c";
+          textColor = "#c0d036";
+          break;
+        case "hedge":
+          bgColor = "#415e31";
+          textColor = "#f2efbb";
+          break;
+        case "matcha-moccha":
+          bgColor = "#523525";
+          textColor = "#7ec160";
+          break;
+        case "cherry-blossom":
+          bgColor = "#323437";
+          textColor = "#d65ccc";
+          break;
+        case "mint":
+          bgColor = "#05385b";
+          textColor = "#5cdb95";
+          break;
+        case "superuser":
+          bgColor = "#262a33";
+          textColor = "#43ffaf";
+          break;
+        case "nightrunner":
+          bgColor = "#212121";
+          textColor = "#feff04";
+          break;
+        case "grape":
+          bgColor = "#2c003e";
+          textColor = "#ff8f00";
+          break;
+        case "joker":
+          bgColor = "#1a0e25";
+          textColor = "#99de1e";
+          break;
+        case "matrix":
+          bgColor = "#000000";
+          textColor = "#15ff00";
+          break;
+        case "husqy":
+          bgColor = "#000000";
+          textColor = "#c58aff";
+          break;
+        case "fire":
+          bgColor = "#0f0000";
+          textColor = "#b31313";
+          break;
+        case "stealth":
+          bgColor = "#010203";
+          textColor = "#383e42";
+          break;
+        default:
+          bgColor = "#FFFFFF";
+          textColor = "#000000";
+      }
 
-  // Setze die ausgewählten Farben
-  document.getElementById("bg-color").value = bgColor;
-  document.getElementById("text-color").value = textColor;
+      // Setze die ausgewählten Farben
+      document.getElementById("bg-color").value = bgColor;
+      document.getElementById("text-color").value = textColor;
 
-  // Aktualisiere die Hintergrund- und Textfarben
-  document.body.style.backgroundColor = bgColor;
-  document.body.style.color = textColor;
+      // Aktualisiere die Hintergrund- und Textfarben
+      document.body.style.backgroundColor = bgColor;
+      document.body.style.color = textColor;
 
-  changeColors();
-
-}
+      changeColors();
+    }
   </script>
 </body>
 </html>
