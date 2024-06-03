@@ -120,7 +120,7 @@ if(isset($_SESSION['fehler']))
                         Zur Startseite
                         </button>
                     </a>
-                    <a href="../../Login+Regi.html">
+                    <a href="../../Login+Regi.php">
                         <button id="second" class="btn btn-primary btn-block button_confirmation w50p fl">
                         Erneut versuchen
                         </button>

@@ -796,10 +796,29 @@ input[type="color"] {
     margin-bottom: 2px;
     margin-right: 7px;
     margin-top: -5px;
+    border-radius: 14px;
     
 }
 #statsbutton{
     width: 245px!important;
+}
+.userStats_furthersettings{
+    width: 100%;
+    padding: 15px;
+    border-top: 1px solid #ccc;
+    border-radius: 5px;
+    height: 100px;
+}
+.userStats_furthersettings button{
+    background-color: var(--primaryColor);
+    color: white;
+}
+.button_general{
+    background-color: var(--primaryColor);
+    color: white;
+}
+.fr{
+    float: right;
 }
 
 

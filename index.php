@@ -23,9 +23,23 @@ require_once 'conn.php';
 
             <div class="right">
               <?php
+              $sql = "SELECT COUNT(*) AS nutzer FROM nutzer";
+              $result = $conn->query($sql);
+              if($result->num_rows == 1)
+              {
+                while ($row = $result->fetch_assoc())
+                {
+                    $countUsers = $row['nutzer'];
+                }
+              }
               if(isset($_SESSION['user_id']))
               {
                 $UserID = $_SESSION['user_id'];
+
+
+
+
+
                 $sql = "SELECT UserName, profile_pic FROM nutzer WHERE int_id = $UserID";
                 $result = $conn->query($sql);
                 if($result->num_rows == 1)
@@ -51,7 +65,7 @@ require_once 'conn.php';
 
               }
               else{
-                echo '<a href="Login+Regi.html"><button><h3>Login</h3></button></a>';
+                echo '<a href="Login+Regi.php"><button><h3>Login</h3></button></a>';
               }
               ?>
 
@@ -85,7 +99,7 @@ require_once 'conn.php';
 
     <div class="facts">
       <div class="box">
-        <h1 class="box_fact">3</h1>
+        <h1 class="box_fact"><?php echo $countUsers?></h1>
         <p class="box_fact description">Users</p>
       </div>
       <div class="box">

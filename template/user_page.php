@@ -57,7 +57,7 @@ else{
             while($row = $result->fetch_assoc())
             {
                 $UserID_Ergebnis = $row['user_id'];
-                $durchlauf =+1;
+                $durchlauf += 1;
                 if($UserID_Ergebnis == $UserID)
                 {
                     $rang_wpm = $durchlauf;
@@ -68,6 +68,9 @@ else{
                 }
                 
             }
+        }
+        else{
+            $rang_wpm = "unbekannt";
         }
         $sql = "SELECT * FROM result LEFT JOIN nutzer ON result.user_id = nutzer.int_id LEFT JOIN countries ON nutzer.country_id = countries.int_id WHERE country_id = $country_id ORDER BY acc";
         $result = $conn->query($sql);
@@ -88,6 +91,10 @@ else{
                 }
             }
         }
+        else{
+            $rang_acc = "unbekannt";
+
+        }
         ?>
 
 <div class="table_2_itemes">
@@ -96,34 +103,52 @@ else{
         <!-- Include user-specific stats here -->
         <p>Username: <?php echo $UserName?></p>
         <?php 
-        $sql = "SELECT AVG(wpm) AS wpm FROM result WHERE user_id = 3";
+        $sql = "SELECT AVG(wpm) AS wpm FROM result WHERE user_id = $UserID";
         $result = $conn->query($sql);
         if($result->num_rows == 1)
         {
             while($row = $result->fetch_assoc())
             {
                 $wpm = $row['wpm'];
-                $wpm_rounded = round($wpm, 4);
+                if($wpm != '')
+                {
+                    $wpm_rounded = round($wpm, 4);
+                }
+                else{
+                    $wpm_rounded = 0;
+                }
                 echo '<p>Averagge wpm: '.$wpm_rounded.'</p>';
             }
         }
-        $sql = "SELECT AVG(acc) AS acc FROM result WHERE user_id = 3";
+        $sql = "SELECT AVG(acc) AS acc FROM result WHERE user_id = $UserID";
         $result = $conn->query($sql);
         if($result->num_rows == 1)
         {
             while($row = $result->fetch_assoc())
             {
                 $acc = $row['acc'];
-                $acc_rounded = round($acc, 4);
+                if($acc != '')
+                {
+                    $acc_rounded = round($wpm, 4);
+                }
+                else{
+                    $acc_rounded = 0;
+                }
                 echo '<p>Averagge accuracy: '.$acc_rounded.'</p>';
             }
         }
         ?>
-        <p>test type: time 30 sec / english</p>
-        <p>time: 30</p>
+        <span>Your Country: <?php echo $heimatland?></span>
+        <a href="#" onclick="openPopUp('change_country',  500, 180, '#ffffff')"><p>Land ändern</p></a>
 
         <canvas id="scatterChart" width="400" height="200"></canvas>
         <!-- Add more user stats as needed -->
+
+        <div class="userStats_furthersettings">
+
+        <h5>Weitere Einstellungen</h5>
+        <button class="button_general" onclick="openPopUp('change_color',  850, 250, '#ffffff')"><b>Ändere die Farben</b></button>
+        </div>
 </div>
 
   
@@ -280,8 +305,6 @@ else{
     <div id="countryPlacement">
     <p>Du bist aktuell auf Rang <b><?php echo $rang_wpm?></b> in <?php echo $heimatland?></p>
         <p>Du bist aktuell auf Rang <b><?php echo $rang_acc?></b> in <?php echo $heimatland?></p>
-
-
     </div>
 
 
@@ -291,8 +314,9 @@ else{
  
 
 <script>
+        window.onload = togglehighscore(1);
 
-    
+
 function newpicupload(event) {
     console.log("File erhalten");
 
@@ -362,7 +386,7 @@ function newpicupload(event) {
 
         var wpmData = [
             <?php
-            $sql = "SELECT wpm FROM result WHERE user_id = 3";
+            $sql = "SELECT wpm FROM result WHERE user_id = $UserID";
             $result = $conn->query($sql);
             if($result->num_rows > 0)
             {
@@ -378,7 +402,7 @@ function newpicupload(event) {
         ?>];
         var accData = [
             <?php
-            $sql = "SELECT acc FROM result WHERE user_id = 3";
+            $sql = "SELECT acc FROM result WHERE user_id = $UserID";
             $result = $conn->query($sql);
             if($result->num_rows > 0)
             {
@@ -448,7 +472,7 @@ function newpicupload(event) {
                 data: [
                     <?php 
 
-                    $sql = "SELECT acc FROM result WHERE user_id = 3";
+                    $sql = "SELECT acc FROM result WHERE user_id = $UserID";
                     $result = $conn->query($sql);
                     if($result->num_rows > 0)
                     {
@@ -496,9 +520,6 @@ function newpicupload(event) {
 
 
         var currentsetting = 0;
-        window.onload = togglehighscore(1);
-
-
         function togglehighscore(currentsetting){
             var acc = document.getElementById("highscore_acc");
             var wpm = document.getElementById("highscore_wpm");
@@ -518,13 +539,156 @@ function newpicupload(event) {
         }
 
 
+        if("bgcolor" in sessionStorage && "txtcolor" in sessionStorage){
+
+document.documentElement.style.setProperty("--bgColor", sessionStorage.getItem("bgcolor"));
+document.documentElement.style.setProperty("--textPrimary", sessionStorage.getItem("txtcolor"));
+
+}
+// Funktion, um die Farben zu ändern
+function changeColors() {
+var bgColor = document.getElementById("bg-color").value; // Hintergrundfarbe auslesen
+var textColor = document.getElementById("text-color").value; // Textfarbe auslesen
+
+// Prüfe, ob die Farben gleich sind
+if(bgColor !== textColor) {
+  document.body.style.backgroundColor = bgColor; // Hintergrundfarbe ändern
+  document.body.style.color = textColor; // Textfarbe ändern
+  sessionStorage.setItem("bgcolor", bgColor);
+  sessionStorage.setItem("txtcolor", textColor);
+closePopUp('change_color');
+
+} else {
+  alert("Die Textfarbe darf nicht gleich der Hintergrundfarbe sein!"); // Benutzer benachrichtigen
+}
+}
+
+// Funktion, um vorgefertigte Farbkombinationen anzuwenden
+function applyPreset() {
+var presetColors = document.getElementById("preset-colors").value;
+var bgColor, textColor;
+
+// Setze die Farben entsprechend des ausgewählten Vorschlags
+switch(presetColors) {
+case "sewing-pin":
+bgColor = "#8A2BE2"; 
+textColor = "#FFFFFF"; 
+break;
+case "dino":
+bgColor = "#FFFFFF"; 
+textColor = "#00ff7f"; 
+break;
+case "solarized-light":
+bgColor = "#fdf6e3"; 
+textColor =  "#698b22"; 
+break;
+case "darling":
+bgColor = "#ff82ab"; 
+textColor =  "#FFFFFF"; 
+break;
+case "taro":
+bgColor = "#836fff"; 
+textColor =  "#1f1f1f"; 
+break;
+case "beach":
+bgColor = "#ffec8b"; 
+textColor =  "#66cdaa"; 
+break;
+case "frozen-llama":
+bgColor = "#87cefa"; 
+textColor =  "#8a2be2"; 
+break;
+case "strawberry":
+bgColor = "#ff6a6a"; 
+textColor =  "#FFFFFF"; 
+break;
+case "menthol":
+bgColor = "#00c18c"; 
+textColor =  "#FFFFFF"; 
+break;
+case "sweden":
+bgColor = "#0058a3"; 
+textColor =  "#ffcc02"; 
+break;
+case "grand-prix":
+bgColor = "#36475c"; 
+textColor =  "#c0d036"; 
+break;
+case "hedge":
+bgColor = "#415e31"; 
+textColor =  "#f2efbb"; 
+break;
+case "matcha-moccha":
+bgColor = "#523525"; 
+textColor =  "#7ec160"; 
+break;
+case "cherry-blossom":
+bgColor = "#323437"; 
+textColor =  "#d65ccc"; 
+break;
+case "mint":
+bgColor = "#05385b"; 
+textColor =  "#5cdb95"; 
+break;
+case "superuser":
+bgColor = "#262a33"; 
+textColor =  "#43ffaf"; 
+break;
+case "nightrunner":
+bgColor = "#212121"; 
+textColor =  "#feff04"; 
+break;
+case "grape":
+bgColor = "#2c003e"; 
+textColor =  "#ff8f00"; 
+break;
+case "joker":
+bgColor = "#1a0e25"; 
+textColor =  "#99de1e"; 
+break;
+case "matrix":
+bgColor = "#000000"; 
+textColor =  "#15ff00"; 
+break;
+case "husqy":
+bgColor = "#000000"; 
+textColor =  "#c58aff"; 
+break;
+case "fire":
+bgColor = "#0f0000"; 
+textColor =  "#b31313"; 
+break;
+case "stealth":
+bgColor = "#010203"; 
+textColor =  "#383e42"; 
+break;
+default:
+bgColor = "#FFFFFF"; // Standard Hintergrund (weiß)
+textColor = "#000000"; // Standard Textfarbe (schwarz)
+
+
+}
+
+// Setze die ausgewählten Farben
+document.getElementById("bg-color").value = bgColor;
+document.getElementById("text-color").value = textColor;
+
+// Aktualisiere die Hintergrund- und Textfarben
+document.body.style.backgroundColor = bgColor;
+document.body.style.color = textColor;
+
+changeColors();
+
+}
+
+
 
     </script>
 
 
 <div id="new_proile_pic_popup" class="popupwindow">
     <div class="container_content">
-        <form action="new_profile_pic.php" method="POST" enctype="multipart/form-data">
+        <form action="../../new_profile_pic.php" method="POST" enctype="multipart/form-data">
 
         <h4>Neues Profilbild wählen</h4>
         <div class="uploadbox">
@@ -543,6 +707,95 @@ function newpicupload(event) {
 
 
 </div>
+
+<div id="change_country" class="popupwindow">
+    <div class="container_content">
+        <form action="../../change_country.php" method="POST" enctype="multipart/form-data">
+
+        <h4>Wähle ein neues Land</h4>
+        <div class="form-group">
+            <label for="registerCountry">Land:</label>
+            <select name="country" class="form-control" id="registerCountry" required>
+                <?php
+                $sql = "SELECT * FROM countries";
+                $result = $conn->query($sql);
+                if($result ->num_rows > 0)
+                {
+                    while($row = $result->fetch_assoc())
+                    {
+                        echo '<option value="'.$row['int_id'].'">'.$row['country_name'].'</option>';
+                    }
+                }
+                ?>
+            </select>
+        </div>
+        
+        <button type="submit" name="submit" class="profile_pic_new_submit" style="margin-left: 5px;">Land auswählen</button>
+        <button type="button" onclick="closePopUp('change_country')" class="profile_pic_new_submit bgred">Abbrechen</button>
+
+        </form>
+
+    </div>
+
+
+</div>
+<div id="change_color" class="popupwindow">
+    <div class="container_content">
+
+    <!-- Überschrift für die Farbauswahl -->
+    <h1>Farbauswahl für Hintergrund und Text</h1>
+    <!-- Container für die Farbauswahl -->
+    <div id="color-selector">
+        <!-- Farbwähler für die Hintergrundfarbe -->
+        <div>
+        <label for="bg-color">Hintergrundfarbe:</label>
+        <input type="color" id="bg-color">
+        </div>
+        <!-- Farbwähler für die Textfarbe -->
+        <div>
+        <label for="text-color">Textfarbe:</label>
+        <input type="color" id="text-color">
+        </div>
+        <br>
+        <!-- Button zum Ändern der Farben -->
+        <button class="button_general" onclick="changeColors()"><b>Ändern</b></button>
+    </div>
+
+  <!-- Dropdown-Menü für vorgefertigte Farbkombinationen -->
+    <div id="preset-selector">
+        <label for="preset-colors">Vorgefertigte Farbkombination:</label>
+        <select id="preset-colors" onchange="applyPreset()">
+            <option value="default">Standard⚪⚫</option>
+            <option value="sewing-pin">Sewing Pin🟣⚪</option>
+            <option value="dino">Dino⚪🟢</option>
+            <option value="solarized-light">Solarized Light🟡🟢</option>
+            <option value="darling">Darling🔴⚪</option>
+            <option value="taro">Taro🟣⚫</option>
+            <option value="beach">Beach🟡🔵</option>
+            <option value="frozen-llama">Frozen Llama🔵🟣</option>
+            <option value="strawberry">Strawberry🔴⚪</option>
+            <option value="menthol">Menthol🟢⚪</option>
+            <option value="sweden">Sweden🔵🟡</option>
+            <option value="grand-prix">Grand Prix⚫🟡</option>
+            <option value="hedge">Hedge🟢🟡</option>
+            <option value="matcha-moccha">Matcha Moccha🟤🟢</option>
+            <option value="cherry-blossom">Cherry Blossom⚫🟣</option>
+            <option value="mint">Mint🔵🟢</option>
+            <option value="superuser">Superuser⚫🟢</option>
+            <option value="nightrunner">Nightrunner⚫🟡</option>
+            <option value="grape">Grape🟣🟠</option>
+            <option value="joker">Joker🟣🟢</option>
+            <option value="matrix">Matrix⚫🟢</option>
+            <option value="husqy">Husqy⚫🟣</option>
+            <option value="fire">Fire🔴🔴</option>
+            <option value="stealth">Stealth⚫⚫</option>
+        </select>
+        <button class="button_general bgred fr" onclick="closePopUp('change_color')"><b>Abbrechen</b></button>
+
+    </div>
+    </div>
+</div>
+  
 <div id="overlay"></div>
 </body>
 </html>

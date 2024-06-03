@@ -36,7 +36,7 @@
 
               }
               else{
-                echo '<a href="../../Login+Regi.html"><button><h3>Login</h3></button></a>';
+                echo '<a href="../../Login+Regi.php"><button><h3>Login</h3></button></a>';
               }
               ?>
             <a href="../../Typer/index.html"><button><h3>Go Typing</h3></button></a>

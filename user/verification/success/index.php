@@ -93,7 +93,7 @@ session_start()
             <h4>Verifizierung erfolgreich! </h4>
             <p> Bitte melde dich nun erneut an, um dich einzuloggen </p>
 
-            <a href="../../../Login+Regi.html">
+            <a href="../../../Login+Regi.php">
                 <button id="verification" class="btn btn-primary btn-block button_confirmation">
                 Anmelden
                 </button>

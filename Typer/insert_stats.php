@@ -11,9 +11,7 @@ if(isset($_POST['submit']))
     {
         $UserID = $_SESSION['User_id'];
     }
-    else{
-        $UserID = 3;
-    }
+
     echo $acc;
     $acc = str_replace('%', '', $acc);
     $wpm_float = (float) $wpm;

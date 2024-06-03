@@ -118,7 +118,7 @@ else{
             <p> <?php echo $fehler?> </p>
             <div class="two_in_one">
                 <div class="one_elemet">
-                    <a href="../../../Login+Regi.html">
+                    <a href="../../../Login+Regi.php">
                         <button id="verification" class="btn btn-primary btn-block button_confirmation">
                         Anmelden
                         </button>

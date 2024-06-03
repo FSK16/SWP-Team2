@@ -1,6 +1,8 @@
 <?php
 require_once 'conn.php';
 include 'template/functions.php';
+include 'template/sendmail.php';
+
 session_start();
 
 if (isset($_POST['submit']))
@@ -8,10 +10,13 @@ if (isset($_POST['submit']))
     $username = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $country = $_POST['country'];
+    $username = trim($username);
+    $email = trim($email);
     
-    $password_hashed = hash('sha256',$password); //Passwort mit mit der SHA-256 Methode verschlüsselt.
+    $password_hashed = password_hash($password, PASSWORD_DEFAULT); //Passwort mit mit der SHA-256 Methode verschlüsselt.
 
-    $sql = "SELECT * FROM nutzer WHERE Email = '$email'";
+    /*$sql = "SELECT * FROM nutzer WHERE Email = '$email'";
     $result = $conn->query($sql);
     if($result->num_rows > 0)
     {
@@ -21,20 +26,20 @@ if (isset($_POST['submit']))
         header("Location: register/failed"); //Weiterleitung zur Startseite
 
         exit();
-    }
+    }*/
 
     $sql = "SELECT * FROM nutzer WHERE UserName = '$username'"; //Überprüfen, ob es schon Nutzer 
     $result = $conn->query($sql);
     if($result->num_rows > 0)
     {
-        $fehler = "Nutzname existiert bereits in unserer Datenbank. Bitte verwende einen anderen.";
+        $fehler = "Nutzername existiert bereits in unserer Datenbank. Bitte verwende einen anderen.";
         $_SESSION['fehler'] = $fehler;
         header("Location: register/failed"); //Weiterleitung zur Startseite
         exit();
     } 
 
-    $stmt = $conn->prepare("INSERT INTO nutzer (UserName, EMail, verified, password, country_id) VALUES (?, ?, 0, ?, 1)");
-    $stmt->bind_param("sss", $username, $email, $password_hashed);
+    $stmt = $conn->prepare("INSERT INTO nutzer (UserName, EMail, verified, password, country_id) VALUES (?, ?, 0, ?, ?)");
+    $stmt->bind_param("sssi", $username, $email, $password_hashed, $country);
     $stmt->execute();
     $UserID = $stmt->insert_id;
     $stmt->close();
@@ -50,7 +55,7 @@ if (isset($_POST['submit']))
     $phpCode =
     '<?php
     $UserID = '.$UserID.';
-    require_once \'../../template/user_page.php\';
+    require_once \'../../../template/user_page.php\';
     ?>
     ';
 
