@@ -45,7 +45,7 @@ else{
     </header>
     <div class="content">
         <?php
-        $sql = "SELECT UserName, profile_pic FROM nutzer WHERE int_id = $UserID";
+        $sql = "SELECT UserName, profile_pic, country_name FROM nutzer LEFT JOIN countries ON nutzer.country_id = countries.int_id  WHERE nutzer.int_id = $UserID";
         $result = $conn->query($sql);
         if($result->num_rows == 1)
         {
@@ -53,6 +53,7 @@ else{
             {
                 $profilepic = $row['profile_pic'];
                 $UserName = $row['UserName'];
+                $heimatland = $row['country_name'];
                 echo '<h2 id="welcomeMessage">Welcome user '.$row['UserName'].'</h2>';
             }
         }
@@ -246,17 +247,8 @@ else{
 </div>
 
     <div id="countryPlacement">
+        <p>Du bist aktuell auf Rang <?php echo $rang?> in <?php echo $heimatland?></p>
 
-        <script>// Function to get the user's country placement
-            function getCountryPlacement() {
-                // Simulated data, replace with your actual data retrieval logic
-                return "#1";
-            }
-        
-            // Update the "countryPlacement" section with the user's country placement
-            var countryPlacementElement = document.getElementById("countryPlacement");
-            countryPlacementElement.innerHTML = "You are " + getCountryPlacement() + " in your country";
-        </script>
     </div>
 
 
@@ -334,17 +326,108 @@ function newpicupload(event) {
     }
 }
 
+
+        var wpmData = [
+            <?php
+            $sql = "SELECT wpm FROM result WHERE user_id = 3";
+            $result = $conn->query($sql);
+            if($result->num_rows > 0)
+            {
+                $durchlauf = 1;
+                while ($row = $result->fetch_assoc())
+                {
+                    echo '{ x: '.$durchlauf.', y: '.$row['wpm'].' },';
+                    $durchlauf ++;
+
+                }
+            }
+                            
+        ?>];
+        var accData = [
+            <?php
+            $sql = "SELECT acc FROM result WHERE user_id = 3";
+            $result = $conn->query($sql);
+            if($result->num_rows > 0)
+            {
+                $durchlauf = 1;
+                while ($row = $result->fetch_assoc())
+                {
+                    echo '{ x: '.$durchlauf.', y: '.$row['acc'].' },';
+                    $durchlauf ++;
+
+                }
+            }
+                            
+        ?>];
         // JavaScript code for creating the line chart
         var chartData = {
+            datasets: [
+            {
+                label: 'WPM',
+                data: wpmData,
+                backgroundColor: '#39cccc',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                pointRadius: 5,
+                pointHoverRadius: 8
+            },
+            {
+                label: 'Accuracy',
+                data: accData,
+                backgroundColor: '#000000',
+                borderColor: '#000000',
+                borderWidth: 1,
+                pointRadius: 5,
+                pointHoverRadius: 8
+            }
+
+        
+        ]
+        };
+
+        var lineChart = new Chart(document.getElementById("scatterChart"), {
+            type: 'line',
+            data: chartData,
+            options: {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: {
+                            display: true,
+                            text: 'Anzahl Tippversuche'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'WPM'
+                        }
+                    }
+                }
+            }
+        });
+
+
+        var chartData_acc = {
             datasets: [{
-                label: 'WPM vs. Time',
+                label: 'WPM',
                 data: [
-                    { x: 5, y: 75 },
-                    { x: 10, y: 130 },
-                    { x: 15, y: 100 },
-                    { x: 20, y: 90 },
-                    { x: 25, y: 110 },
-                    { x: 30, y: 100 }
+                    <?php 
+
+                    $sql = "SELECT acc FROM result WHERE user_id = 3";
+                    $result = $conn->query($sql);
+                    if($result->num_rows > 0)
+                    {
+                        $durchlauf = 1;
+                        while ($row = $result->fetch_assoc())
+                        {
+                            echo '{ x: '.$durchlauf.', y: '.$row['acc'].' },';
+                            $durchlauf ++;
+
+                        }
+                    }
+                    ?>
                 ],
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
@@ -353,10 +436,9 @@ function newpicupload(event) {
                 pointHoverRadius: 8
             }]
         };
-
-        var lineChart = new Chart(document.getElementById("scatterChart"), {
+        var lineChart_acc = new Chart(document.getElementById("scatterChart"), {
             type: 'line',
-            data: chartData,
+            data: chartData_acc,
             options: {
                 scales: {
                     x: {
@@ -370,12 +452,16 @@ function newpicupload(event) {
                     y: {
                         title: {
                             display: true,
-                            text: 'WPM'
+                            text: 'Accuracy'
                         }
                     }
                 }
             }
         });
+
+
+
+
         var currentsetting = 0;
         window.onload = togglehighscore(1);
 

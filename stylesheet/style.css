@@ -654,7 +654,7 @@ input[type="color"] {
 }
 .userStats_highscoretable{
     width: 100%;
-    height: 380px;
+    height: 400px;
 }
 .userStats_highscoretable_header{
     height: 40px;
@@ -673,7 +673,9 @@ input[type="color"] {
 }
 .userStats_highscoretable_content{
     overflow-y: auto;
-
+    height: 351px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .highscore_entry_block{
@@ -800,6 +802,9 @@ input[type="color"] {
 }
 .link_nodec{
     text-decoration: none;
+}
+.userStats_highscoretable_content{
+    
 }
 
 

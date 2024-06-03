@@ -23,28 +23,29 @@ game.addEventListener('blur', () => {
     isGameFocused = false;
     console.log("Game is not focused");
 });
-
-document.getElementById("languageSelect").addEventListener("change", function() {
+document.getElementById("languageSelect").addEventListener("change", async function() {
     const selectedLanguage = this.value;
-    let count = 5;
-    fetchWords(selectedLanguage, count);
-    newGame();
+    let count = woerter || 100;
+    await fetchWords(selectedLanguage, count); // Wait for fetchWords to finish
+    newGame(selectedLanguage, count);
 });
 
-async function fetchWords(lang, count) {
-    const url = 'http://localhost:3000/' + lang + '/' + count;
+async function fetchWords(lang = 'english', count = woerter || 150) {
+    count = count || 150; 
+    const url = `http://localhost:3000/random-word?language=${lang}&number=${count}`;
+    
     try {
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        words = data.string.split(" ");
+        words = data.words || []; // Adjust based on API response format
     } catch (error) {
         console.log('There was a problem with the fetch operation: ' + error.message);
+        words = []; // Set words to an empty array in case of error
     }
 }
-
 function resetButtonColors() {
     buttonIds.forEach(id => {
         document.getElementById(id).style.color = "rgba(255, 255, 255, .5)";
@@ -69,9 +70,13 @@ buttonIds.forEach(id => {
             gameTime = parseInt(id.replace("wordsBtn", ""));
             woerter = null;
         }
-        newGame();
+        // Fetch words when a button is clicked
+        const selectedLanguage = document.getElementById("languageSelect").value;
+        fetchWords(selectedLanguage, woerter);
+        newGame(selectedLanguage, woerter);
     });
 });
+
 
 
 
@@ -84,24 +89,24 @@ function removeClass(el,name) {
 }
 
 function randomWord() {
+    if (words.length === 0) {
+        throw new Error('No words available');
+    }
     return words[Math.floor(Math.random() * words.length)];
-}
+}   
 
 function formatWord(word) {
     return `<div class="word" style="user-select: none;"><span class="letter">${word.split('').join('</span><span class="letter">')}</span></div>`;
 }
 
-async function newGame() {
+async function newGame(lang = 'english', count = woerter || 150) {
     resetDisplay();
-    await fetchWords();
+    await fetchWords(lang, count);
     resetGameVariables();
     generateWords();
     positionCursor();
     startGameTimer();
     resetStats();
-
-
-    
 }
 
 function resetDisplay() {
@@ -118,23 +123,19 @@ function resetGameVariables() {
 }
 
 function generateWords() {
-    if(woerter == null) {
-        for (let i = 0; i < 200; i++) {
-            appendWordToDisplay(randomWord());
-        }
+    try {
+        words.forEach(word => {
+            appendWordToDisplay(word);
+        });
+        addClass(document.querySelector(".word"), "current");
+        addClass(document.querySelector(".letter"), "current");
+    } catch (error) {
+        console.log('There was a problem generating words: ' + error.message);
     }
-    if(gameTime == null) {
-        for (let i = 0; i < woerter; i++) {
-            appendWordToDisplay(randomWord());
-        }
-    }
-    addClass(document.querySelector(".word"), "current");
-    addClass(document.querySelector(".letter"), "current");
 }
-
 function appendWordToDisplay(word) {
     document.getElementById("words").innerHTML += formatWord(word);
-}
+}6
 
 function positionCursor() {
     const firstLetter = document.querySelector(".letter:first-child");
@@ -388,29 +389,31 @@ document.getElementById("game").addEventListener("keyup", ev => {
         addClass(currentWord.nextSibling.firstChild, "current");
     }
 
-    // Verarbeitung der Backspace-Taste
-    if (isBackspace) {
-        if (currentLetter && isFirstLetter) {
-            removeClass(currentWord, "current");
-            addClass(currentWord.previousSibling, "current");
-            removeClass(currentLetter, "current");
-            addClass(currentWord.previousSibling.lastChild, "current");
-            removeClass(currentWord.previousSibling.lastChild, "incorrect");
-            removeClass(currentWord.previousSibling.lastChild, "correct");
-            removeClass(currentWord.previousSibling.lastChild, "skipped");
-        } else if (currentLetter && !isFirstLetter) {
-            removeClass(currentLetter, "current");
-            addClass(currentLetter.previousSibling, "current");
-            removeClass(currentLetter.previousSibling, "correct");
-            removeClass(currentLetter.previousSibling, "incorrect");
-            removeClass(currentLetter.previousSibling, "skipped");
-        } else if (!currentLetter) {
-            addClass(currentWord.lastChild, "current");
-            removeClass(currentWord.lastChild, "correct");
-            removeClass(currentWord.lastChild, "incorrect");
-            removeClass(currentWord.lastChild, "skipped");
-        }
+// Verarbeitung der Backspace-Taste
+if (isBackspace) {
+    if (currentLetter && currentLetter.classList.contains('extra')) {
+        currentWord.removeChild(currentLetter);
+    } else if (currentLetter && isFirstLetter) {
+        removeClass(currentWord, "current");
+        addClass(currentWord.previousSibling, "current");
+        removeClass(currentLetter, "current");
+        addClass(currentWord.previousSibling.lastChild, "current");
+        removeClass(currentWord.previousSibling.lastChild, "incorrect");
+        removeClass(currentWord.previousSibling.lastChild, "correct");
+        removeClass(currentWord.previousSibling.lastChild, "skipped");
+    } else if (currentLetter && !isFirstLetter) {
+        removeClass(currentLetter, "current");
+        addClass(currentLetter.previousSibling, "current");
+        removeClass(currentLetter.previousSibling, "correct");
+        removeClass(currentLetter.previousSibling, "incorrect");
+        removeClass(currentLetter.previousSibling, "skipped");
+    } else if (!currentLetter) {
+        addClass(currentWord.lastChild, "current");
+        removeClass(currentWord.lastChild, "correct");
+        removeClass(currentWord.lastChild, "incorrect");
+        removeClass(currentWord.lastChild, "skipped");
     }
+}
 
     // Funktion zum Scrollen der Wörter
     function scrollWords(amount) {

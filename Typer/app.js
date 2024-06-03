@@ -1,8 +1,8 @@
 const { fakerDE_AT, fakerEN, fakerEN_GB, fakerDE_CH, fakerDE, fakerFR } = require('@faker-js/faker');
 const express = require('express');
-const cors = require('cors'); // Import the cors module
+const cors = require('cors');               
 const app = express();
-app.use(cors()); // Use cors as middleware
+app.use(cors()); 
 //PORT
 const port = 3000;
 
