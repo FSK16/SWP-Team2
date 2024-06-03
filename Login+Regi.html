@@ -33,32 +33,34 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="login">
+                    <form action="register.php" method="POST">
                         <div class="form-group">
                             <label for="loginUsername">Benutzername:</label>
-                            <input type="text" class="form-control" id="loginUsername">
+                            <input type="text" class="form-control" id="loginUsername" required>
                         </div>
                         <div class="form-group">
                             <label for="loginPassword">Passwort:</label>
-                            <input type="password" class="form-control" id="loginPassword">
+                            <input type="password" class="form-control" id="loginPassword" required>
                         </div>
                         <a href="userStats/index.html"><button type="submit" class="btn btn-primary btn-block">Registrieren</button></a>
                     
                 </div>
                 <div class="tab-pane fade" id="register">
+                    <form action="register.php" method="POST">
                         <div class="form-group">
                             <label for="registerUsername">Benutzername:</label>
-                            <input type="text" class="form-control" id="registerUsername">
+                            <input type="text" name="name" class="form-control" id="registerUsername" required>
                         </div>
                         <div class="form-group">
                             <label for="registerEmail">E-Mail-Adresse:</label>
-                            <input type="email" class="form-control" id="registerEmail">
+                            <input type="email"  name="email" class="form-control" id="registerEmail" required>
                         </div>
                         <div class="form-group">
                             <label for="registerPassword">Passwort:</label>
-                            <input type="password" class="form-control" id="registerPassword">
+                            <input type="password" name="password" class="form-control" id="registerPassword" required> 
                         </div>
-                        <a href="userStats/index.html"><button type="submit" class="btn btn-primary btn-block">Registrieren</button></a>
-                    
+                        <button type="submit" name="submit" class="btn btn-primary btn-block">Registrieren</button>
+                    </form>                    
                 </div>
             </div>
         </div>
