@@ -1,6 +1,7 @@
 <?php
-require_once '../conn.php';
-include '../template/functions.php';
+
+require_once '../../../conn.php';
+include '../../../template/functions.php';
 session_start();
 if(isset($_SESSION['user_id']))
 {
@@ -18,8 +19,8 @@ else{
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typrus</title>
-    <link rel="stylesheet" href="../stylesheet/style.css">
-    <script src="../Typer/typus.js"></script>
+    <link rel="stylesheet" href="../../../stylesheet/style.css">
+    <script src="../../../Typer/typus.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
@@ -31,7 +32,7 @@ else{
 <body> 
 
     <?php
-    require_once '../template/header_1_unterordner.php';
+    require_once '../../../template/header_3_unterordner.php';
     ?>
     <div class="content">
         <?php
@@ -257,10 +258,10 @@ else{
                         <?php
                         if(isset($profilepic))
                         {
-                            echo '<img src="../user/profile_pictures/'.$profilepic.'" alt="Profilbild von '.$UserName.'">';
+                            echo '<img src="../../../user/profile_pictures/'.$profilepic.'" alt="Profilbild von '.$UserName.'">';
                         }
                         else{
-                            echo '<img src="../pics/user-avatar.png" alt="Profilbild von '.$UserName.'">';
+                            echo '<img src="../../../pics/user-avatar.png" alt="Profilbild von '.$UserName.'">';
                         }
                         ?>
                     </div>

@@ -186,19 +186,20 @@ header button {
 header button h3 {
     margin: auto;
     font-weight: 700;
+    display: inline;
 
 }
 
 
 .left {
-    width: 50%;
+    width: 40%;
     display: flex;
     align-content: center;
     flex-wrap: wrap;
 }
 
 .right {
-    width: 50%;
+    width: 60%;
     display: flex;
     align-content: center;
     flex-wrap: wrap;
@@ -401,21 +402,7 @@ header button h3 {
 
 }
 
-.left {
-    width: 50%;
-    display: flex;
-    align-content: center;
-    flex-wrap: wrap;
-}
 
-.right {
-    width: 50%;
-    display: flex;
-    align-content: center;
-    flex-wrap: wrap;
-    flex-direction: row-reverse;
-    padding-right: 10px;
-}
 
 
 .card {
@@ -803,8 +790,16 @@ input[type="color"] {
 .link_nodec{
     text-decoration: none;
 }
-.userStats_highscoretable_content{
+.header_profile_pic{
+    height: 28px;
+    width: 28px;
+    margin-bottom: 2px;
+    margin-right: 7px;
+    margin-top: -5px;
     
+}
+#statsbutton{
+    width: 245px!important;
 }
 
 

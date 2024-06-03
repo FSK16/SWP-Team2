@@ -3,6 +3,7 @@ session_start();
 if(isset($_SESSION['fehler']))
 {
     $fehler = $_SESSION['fehler'];
+    $_SESSION['fehler'] = null;
 
 }
 ?><!DOCTYPE html>

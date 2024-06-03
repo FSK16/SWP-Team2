@@ -1,14 +1,14 @@
 <?php
 require_once 'conn.php';
-
+session_start();
 if (isset($_POST['submit']))
 {
+
     $name = $_POST['name'];
     $password = $_POST['password'];
 
     $sql = "SELECT * FROM nutzer WHERE UserName = '$name'";
     $result = $conn->query($sql);
-
     if($result->num_rows > 0)
     {
         while ($row = $result->fetch_assoc())
@@ -21,16 +21,19 @@ if (isset($_POST['submit']))
             {
                 session_start();
                 $_SESSION['user_id'] = $user_id;
-                header("Location: success.php");
+                header("Location: index.php?login=success");
+                exit();
             }
             else{
                 $_SESSION['fehler'] = "Falsches Passwort";
-                header("Location: failed.php");
+                header("Location: register/failed");
+                exit();
             }
         }
     }
     else{
-        $_SESSION['fehler'] = "Falsches Passwort";
-        header("Location: failed.php"); 
+        $_SESSION['fehler'] = "Der Benutzername ist nicht bekannt";
+        header("Location: register/failed"); 
+        exit();
     }
 }
