@@ -183,6 +183,7 @@ function startInt(){
     }, 1000)
 }
 
+
 function displayRes(){
     const xValues = [...Array(30).keys()].map(x => x + 1);
     const yValues = values;
