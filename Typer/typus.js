@@ -5,7 +5,7 @@ let timer_wo_limit;
 let woerter;
 let gameTime = 15;
 let TimerStarted = false;
-const buttonIds = ["wordsBtn15", "wordsBtn30", "wordsBtn60", "wordsBtn200woerter", "wordsBtn300woerter", "wordsBtn400woerter", "wordsBtn10woerter" ];
+const buttonIds = ["wordsBtn10woerter", "wordsBtn20woerter", "wordsBtn30woerter"];
 let isGameFocused = false;
 const game = document.getElementById('game');
 let interval = null;
@@ -31,7 +31,7 @@ document.getElementById("languageSelect").addEventListener("change", async funct
 });
 
 async function fetchWords(lang = 'english', count = woerter || 150) {
-    count = count || 150; 
+    count = woerter ? woerter : 150; // Ändern Sie diese Zeile
     const url = `http://localhost:3000/random-word?language=${lang}&number=${count}`;
     
     try {
@@ -61,7 +61,7 @@ buttonIds.forEach(id => {
     document.getElementById(id).addEventListener("click", ev => {
         selectButton(id);
         if(id.includes("woerter")) {            
-            woerter = getNumberofSring(id);
+            woerter = getNumberFromId(id);
             if (woerter == null) {
                 alert("Keine Wortanzahl gefunden!");
             }
@@ -461,10 +461,9 @@ document.getElementById("newGameBtn").addEventListener("click", ev => {
 }
 );
 
-function getNumberofSring(string) {
-    var number = parseInt(string.match(/\d+/));
-    console.log(number);
-    return number;
+function getNumberFromId(id) {
+    const match = id.match(/\d+/); // Match one or more digits
+    return match ? parseInt(match[0], 10) : null; // Convert matched string to number
 }
 
 function startTimeWithOutLimit()
