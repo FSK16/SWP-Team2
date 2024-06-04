@@ -137,6 +137,7 @@ function appendWordToDisplay(word) {
     word.split(' ').forEach(singleWord => {
         document.getElementById("words").innerHTML += formatWord(singleWord);
     });
+    
 }
 function positionCursor() {
     const firstLetter = document.querySelector(".letter:first-child");
