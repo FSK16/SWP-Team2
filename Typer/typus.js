@@ -134,9 +134,10 @@ function generateWords() {
     }
 }
 function appendWordToDisplay(word) {
-    document.getElementById("words").innerHTML += formatWord(word);
-}6
-
+    word.split(' ').forEach(singleWord => {
+        document.getElementById("words").innerHTML += formatWord(singleWord);
+    });
+}
 function positionCursor() {
     const firstLetter = document.querySelector(".letter:first-child");
     const cursor = document.getElementById("cursor");
