@@ -303,8 +303,8 @@ else{
 </div>
 
     <div id="countryPlacement">
-    <p>Du bist aktuell auf Rang <b><?php echo $rang_wpm?></b> in <?php echo $heimatland?></p>
-        <p>Du bist aktuell auf Rang <b><?php echo $rang_acc?></b> in <?php echo $heimatland?></p>
+    <p>In the Words-Per-Minute leaderboard your are postion <b><?php echo $rang_wpm?></b> in <?php echo $heimatland?></p>
+        <p>In the accuracy leaderboard your are postion <b><?php echo $rang_acc?></b> in <?php echo $heimatland?></p>
     </div>
 
 
