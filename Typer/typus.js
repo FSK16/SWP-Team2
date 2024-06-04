@@ -184,8 +184,10 @@ function startInt(){
 }
 
 
+
+
 function displayRes(){
-    const xValues = [...Array(30).keys()].map(x => x + 1);
+    const xValues = [...Array(gameTime).keys()].map(x => x + 1);
     const yValues = values;
     console.log(yValues);
 
