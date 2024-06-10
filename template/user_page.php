@@ -688,7 +688,7 @@ changeColors();
 
 <div id="new_proile_pic_popup" class="popupwindow">
     <div class="container_content">
-        <form action="../../new_profile_pic.php" method="POST" enctype="multipart/form-data">
+        <form action="../new_profile_pic.php" method="POST" enctype="multipart/form-data">
 
         <h4>Neues Profilbild wählen</h4>
         <div class="uploadbox">
@@ -710,7 +710,7 @@ changeColors();
 
 <div id="change_country" class="popupwindow">
     <div class="container_content">
-        <form action="../../change_country.php" method="POST" enctype="multipart/form-data">
+        <form action="../change_country.php" method="POST" enctype="multipart/form-data">
 
         <h4>Wähle ein neues Land</h4>
         <div class="form-group">
