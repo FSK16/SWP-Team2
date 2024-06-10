@@ -7,9 +7,9 @@ if(isset($_POST['submit']))
     $wpm = $_POST['wpm'];
     $acc = $_POST['acc'];
 
-    if(isset($_SESSION['User_id']))
+    if(isset($_SESSION['user_id']))
     {
-        $UserID = $_SESSION['User_id'];
+        $UserID = $_SESSION['user_id'];
     }
 
     echo $acc;
