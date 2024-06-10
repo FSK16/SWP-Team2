@@ -5,7 +5,7 @@ let timer_wo_limit;
 let woerter;
 let gameTime = 15;
 let TimerStarted = false;
-const buttonIds = ["wordsBtn10woerter", "wordsBtn20woerter", "wordsBtn30woerter"];
+const buttonIds = ["wordsBtn10woerter", "wordsBtn30woerter", "wordsBtn50woerter"];
 let isGameFocused = false;
 const game = document.getElementById('game');
 let interval = null;
@@ -291,6 +291,7 @@ function getAccuracy() {
     return -wrongCounter / getCorrectCharacters() * 100 + 100; 
 }
 
+var lastWord
 // Event-Listener für die Tastatureingabe
 document.getElementById("game").addEventListener("keyup", ev => {
     const key = ev.key;
@@ -316,7 +317,7 @@ document.getElementById("game").addEventListener("keyup", ev => {
     if(gameTime == null) {
         const words = [...document.querySelectorAll('.word')];
         
-        const lastWord = document.querySelector(".word:last-child");
+        lastWord = document.querySelector(".word:last-child");
         const lastLetter = lastWord.querySelector(".letter:last-child");
         
         if (currentLetter === lastLetter && currentWord == lastWord) {
@@ -385,13 +386,25 @@ document.getElementById("game").addEventListener("keyup", ev => {
                 addClass(letter, "skipped");
             });
         }
+
         addClass(currentWord, "completed");
-        removeClass(currentWord, "current");
-        addClass(currentWord.nextSibling, "current");
-        if (currentLetter) {
-            removeClass(currentLetter, "current");
+        if(currentWord !== lastWord)
+        {
+            removeClass(currentWord, "current");
+            addClass(currentWord.nextSibling, "current");
+            if (currentLetter) {
+                removeClass(currentLetter, "current");
+            }
+            addClass(currentWord.nextSibling.firstChild, "current");
         }
-        addClass(currentWord.nextSibling.firstChild, "current");
+        else if(currentWord === lastWord)
+        {
+            removeClass(currentWord, "current");
+            gameover();
+
+        }
+
+       
     }
 
 // Verarbeitung der Backspace-Taste
